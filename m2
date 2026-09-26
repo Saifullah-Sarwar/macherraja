@@ -1,0 +1,1969 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0284c7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="মাছের রাজা">
+    <meta name="description" content="১ম শ্রেণির বাংলা পাঠ ৫০ - মাছের রাজা (ইলিশ) ইন্টারঅ্যাকটিভ শিক্ষামূলক অ্যাপ">
+    <title>আমার বাংলা বই - ১ম শ্রেণি (পাঠ ৫০: মাছের রাজা)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- PptxGenJS for PowerPoint export -->
+    <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+    <!-- Google Fonts for Bengali -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Galada&family=Hind+Siliguri:wght@400;500;600;700&family=Mina:wght@400;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0ea5e9',
+                        secondary: '#0284c7',
+                        accent: '#f59e0b',
+                        oceanDark: '#075985',
+                        oceanLight: '#e0f2fe'
+                    },
+                    fontFamily: {
+                        hind: ['"Hind Siliguri"', 'sans-serif'],
+                        galada: ['"Galada"', 'cursive'],
+                        mina: ['"Mina"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background: linear-gradient(135deg, #bae6fd 0%, #e0f2fe 50%, #f0f9ff 100%);
+            min-height: 100vh;
+            user-select: none;
+        }
+
+        .font-title { font-family: 'Galada', cursive; }
+
+        @keyframes float-gentle {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(1.5deg); }
+        }
+        .animate-float { animation: float-gentle 3.5s infinite ease-in-out; }
+
+        @keyframes swim-sway {
+            0%, 100% { transform: translateX(0) scaleX(1); }
+            50% { transform: translateX(12px) scaleX(1.02); }
+        }
+        .animate-swim { animation: swim-sway 3s infinite ease-in-out; }
+
+        @keyframes bubble-rise {
+            0% { transform: translateY(0) scale(0.6); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-130px) scale(1.2); opacity: 0; }
+        }
+        .bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: bubble-rise 4s infinite linear;
+        }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #e0f2fe; }
+        ::-webkit-scrollbar-thumb { background: #0284c7; border-radius: 10px; }
+
+        .line-card { transition: all 0.2s ease-in-out; }
+        .line-card:hover { transform: translateX(6px); }
+
+        .active-reading {
+            background-color: #fef08a !important;
+            border-color: #eab308 !important;
+            box-shadow: 0 4px 14px rgba(234, 179, 8, 0.35);
+            transform: scale(1.02);
+        }
+
+        #gameCanvas {
+            background: linear-gradient(to bottom, #38bdf8 0%, #0284c7 60%, #075985 100%);
+            border-radius: 1.5rem;
+            cursor: pointer;
+            touch-action: none;
+        }
+
+        .tab-btn { transition: all 0.25s ease; }
+        .tab-btn.active {
+            background-color: #0284c7;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+        }
+
+        @keyframes praise-bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15) rotate(2deg); }
+        }
+        .animate-praise { animation: praise-bounce 0.6s ease-in-out; }
+
+        /* Install pulse animation */
+        @keyframes install-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(236, 72, 153, 0); }
+        }
+        .install-pulse { animation: install-pulse 2s infinite; }
+
+        #printArea { display: none; }
+
+        @media print {
+            @page { size: A4 portrait; margin: 1.2cm 1.3cm; }
+            html, body { background: #ffffff !important; padding: 0 !important; margin: 0 !important; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            #appContainer { display: none !important; }
+            .no-print { display: none !important; }
+            #printModal, #installModal { display: none !important; }
+            #printArea { display: block !important; }
+
+            .pr-page {
+                font-family: 'Hind Siliguri', 'Nirmala UI', 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif;
+                color: #0f172a; font-size: 11.5pt; line-height: 1.65;
+            }
+            .pr-head { text-align: center; border-bottom: 3px solid #0284c7; padding-bottom: 7px; margin-bottom: 12px; }
+            .pr-kicker { font-size: 9pt; font-weight: 700; color: #0369a1; letter-spacing: .4px; }
+            .pr-head h1 { font-family: 'Galada', 'Hind Siliguri', cursive; font-size: 21pt; color: #075985; margin: 3px 0 6px 0; }
+            .pr-meta { display: flex; justify-content: space-between; gap: 10px; font-size: 10pt; font-weight: 600; flex-wrap: wrap; }
+            .pr-name { margin-top: 7px; font-size: 10pt; font-weight: 600; text-align: left; }
+            .pr-sec { margin-top: 13px; page-break-inside: avoid; }
+            .pr-sec > h2 { font-size: 12.5pt; color: #ffffff; background: #0284c7; padding: 4px 9px; border-radius: 5px; margin-bottom: 7px; font-weight: 700; }
+            .pr-sec h3 { font-size: 11pt; color: #075985; margin: 8px 0 4px 0; font-weight: 700; }
+            .pr-ol { margin: 0; padding-left: 20px; }
+            .pr-ol li { margin-bottom: 4px; font-weight: 600; }
+            .pr-table { width: 100%; border-collapse: collapse; margin-top: 4px; font-size: 10.5pt; }
+            .pr-table th { background: #e0f2fe; color: #075985; border: 1px solid #7dd3fc; padding: 5px 7px; text-align: left; font-weight: 700; }
+            .pr-table td { border: 1px solid #bae6fd; padding: 5px 7px; font-weight: 600; }
+            .pr-q { margin-bottom: 9px; padding: 6px 9px; border: 1px dashed #94a3b8; border-radius: 7px; page-break-inside: avoid; }
+            .pr-q .pr-qt { font-weight: 700; }
+            .pr-sentence { margin: 3px 0 2px 20px; font-weight: 700; color: #0f172a; }
+            .pr-blank { display: inline-block; min-width: 110px; border-bottom: 1.4px dotted #0f172a; }
+            .pr-opts { margin-left: 20px; font-size: 10pt; font-weight: 600; color: #0369a1; }
+            .pr-tf { margin-left: 20px; font-size: 10.5pt; font-weight: 600; }
+            .pr-box { display: inline-block; width: 12px; height: 12px; border: 1.4px solid #0f172a; margin: 0 3px 0 10px; vertical-align: -2px; }
+            .pr-ans { color: #047857; font-weight: 700; }
+            .pr-note { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 6px 10px; border-radius: 5px; font-size: 10.5pt; font-weight: 600; }
+            .pr-foot { margin-top: 16px; border-top: 2px solid #cbd5e1; padding-top: 6px; text-align: center; font-size: 8.5pt; color: #64748b; font-weight: 600; }
+            .pr-pagebreak { page-break-before: always; }
+            .pr-emoji-row { font-size: 20pt; letter-spacing: 10px; margin: 3px 0 5px 0; text-align: center; }
+            .pr-emoji-line { font-size: 16pt; text-align: center; letter-spacing: 6px; margin: 2px 0; }
+        }
+    </style>
+</head>
+<body class="p-2 sm:p-4 md:p-6 text-gray-800">
+
+    <div id="appContainer" class="max-w-6xl mx-auto bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden border-4 border-sky-200">
+        
+        <!-- Main Application Header -->
+        <header class="bg-gradient-to-r from-sky-600 via-cyan-600 to-teal-600 p-4 sm:p-6 text-white text-center relative overflow-hidden shadow-md">
+            <div class="absolute -top-6 -left-6 w-28 h-28 bg-white/10 rounded-full blur-xl"></div>
+            <div class="absolute -bottom-6 -right-6 w-36 h-36 bg-amber-300/20 rounded-full blur-xl"></div>
+            
+            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3 text-left">
+                    <span class="text-4xl sm:text-6xl animate-float">🐟</span>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="bg-amber-300 text-sky-950 text-xs font-black px-3 py-0.5 rounded-full uppercase tracking-wider">পাঠ ৫০</span>
+                            <span class="text-xs text-sky-100 font-semibold">আমার বাংলা বই • ১ম শ্রেণি</span>
+                        </div>
+                        <h1 class="text-3xl sm:text-5xl font-title text-amber-200 tracking-wide drop-shadow-md mt-0.5">মাছের রাজা (ইলিশ)</h1>
+                        
+                        <div class="mt-2 inline-flex items-center gap-2 bg-gradient-to-r from-amber-400 via-pink-500 to-rose-500 text-white text-xs sm:text-sm font-black px-4 py-1 rounded-full shadow-lg border border-white/40 transform hover:scale-105 transition-all">
+                            <span class="text-amber-200">✨</span>
+                            <span>পরিকল্পনা ও ডিজাইনে: <strong class="text-yellow-200 text-sm sm:text-base font-extrabold drop-shadow">মো: সাইফুল্লাহ সরোয়ার</strong></span>
+                            <span class="text-amber-200">👑</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Global Sound & Controls Bar -->
+                <div class="flex flex-wrap items-center justify-center gap-2 bg-white/20 backdrop-blur-md px-3 py-2 rounded-2xl border border-white/30">
+                    <button id="soundToggleBtn" onclick="toggleAudio()" class="flex items-center gap-1.5 bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-xl text-white font-bold text-xs sm:text-sm transition">
+                        <i id="soundIcon" class="fas fa-volume-up text-amber-200"></i>
+                        <span id="soundText">শব্দ চালু</span>
+                    </button>
+                    
+                    <div class="h-5 w-px bg-white/30"></div>
+
+                    <div class="flex items-center gap-1 text-xs text-white">
+                        <i class="fas fa-gauge-high text-amber-200"></i>
+                        <select id="speechRateSelect" onchange="changeSpeechRate(this.value)" class="bg-sky-900/60 text-white rounded-lg px-2 py-1 border border-white/30 focus:outline-none font-medium">
+                            <option value="0.65">ধীরে</option>
+                            <option value="0.85" selected>স্বাভাবিক</option>
+                            <option value="1.05">দ্রুত</option>
+                        </select>
+                    </div>
+
+                    <div class="h-5 w-px bg-white/30"></div>
+
+                    <!-- Print Button -->
+                    <button onclick="openPrintModal()" class="flex items-center gap-1.5 bg-emerald-500 hover:bg-emerald-400 px-3 py-1.5 rounded-xl text-white font-bold text-xs sm:text-sm transition shadow-md">
+                        <i class="fas fa-print"></i>
+                        <span>প্রিন্ট</span>
+                    </button>
+
+                    <!-- PowerPoint Button -->
+                    <button id="pptBtn" onclick="downloadPPT()" class="flex items-center gap-1.5 bg-orange-600 hover:bg-orange-500 px-3 py-1.5 rounded-xl text-white font-bold text-xs sm:text-sm transition shadow-md">
+                        <i class="fas fa-file-powerpoint"></i>
+                        <span id="pptBtnText">পাওয়ারপয়েন্ট</span>
+                    </button>
+
+                    <!-- Download HTML Button -->
+                    <button onclick="downloadHTML()" class="flex items-center gap-1.5 bg-purple-600 hover:bg-purple-500 px-3 py-1.5 rounded-xl text-white font-bold text-xs sm:text-sm transition shadow-md" title="সম্পূর্ণ HTML ফাইল ডাউনলোড করে কম্পিউটারে সেভ করুন">
+                        <i class="fas fa-download"></i>
+                        <span>ডাউনলোড</span>
+                    </button>
+
+                    <!-- ✅ INSTALL Button -->
+                    <button id="installBtn" onclick="handleInstallClick()" class="install-pulse flex items-center gap-1.5 bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 px-3 py-1.5 rounded-xl text-white font-bold text-xs sm:text-sm transition shadow-md" title="অ্যাপটি কম্পিউটার বা মোবাইলে ইনস্টল করুন">
+                        <i class="fas fa-circle-down"></i>
+                        <span id="installBtnText">ইনস্টল</span>
+                    </button>
+
+                    <div class="h-5 w-px bg-white/30"></div>
+                    <span class="text-[11px] bg-amber-300 text-sky-950 font-black px-2.5 py-1 rounded-full shadow">NCTB</span>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <nav class="mt-5 flex flex-wrap justify-center gap-2 border-t border-white/20 pt-3">
+                <button onclick="switchTab('reading')" id="tab-reading" class="tab-btn active px-4 py-2 rounded-2xl text-sm font-bold flex items-center gap-2 bg-sky-100 text-sky-900">
+                    <span>📖</span> পাঠ পড়া ও শব্দ
+                </button>
+                <button onclick="switchTab('exercises')" id="tab-exercises" class="tab-btn px-4 py-2 rounded-2xl text-sm font-bold flex items-center gap-2 bg-sky-100/50 text-white hover:bg-sky-100/80 hover:text-sky-900">
+                    <span>✍️</span> মজার অনুশীলন
+                </button>
+                <button onclick="switchTab('game')" id="tab-game" class="tab-btn px-4 py-2 rounded-2xl text-sm font-bold flex items-center gap-2 bg-amber-400 text-sky-950 font-black hover:bg-amber-300 shadow-md">
+                    <span>🎮</span> মাছের গেম
+                </button>
+                <button onclick="switchTab('guide')" id="tab-guide" class="tab-btn px-4 py-2 rounded-2xl text-sm font-bold flex items-center gap-2 bg-emerald-400 text-emerald-950 font-black hover:bg-emerald-300 shadow-md">
+                    <span>👨‍🏫</span> অভিভাবক ও শিক্ষক
+                </button>
+            </nav>
+        </header>
+
+        <!-- Main Content View Container -->
+        <main class="p-3 sm:p-6 md:p-8 space-y-8">
+
+            <section id="section-reading" class="space-y-6">
+                <div class="bg-gradient-to-br from-sky-50 via-cyan-50 to-blue-100 rounded-3xl p-4 sm:p-6 border-4 border-sky-300 shadow-lg relative overflow-hidden">
+                    <div class="bubble w-4 h-4 left-8 bottom-0" style="animation-delay: 0s;"></div>
+                    <div class="bubble w-6 h-6 left-1/3 bottom-0" style="animation-delay: 1.5s;"></div>
+                    <div class="bubble w-3 h-3 right-10 bottom-0" style="animation-delay: 0.8s;"></div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                        <div class="lg:col-span-5 text-center flex flex-col items-center">
+                            <div class="relative group my-2">
+                                <div class="w-64 h-44 sm:w-72 sm:h-48 bg-gradient-to-b from-sky-300 via-sky-400 to-sky-600 rounded-3xl flex items-center justify-center border-4 border-white shadow-xl p-3 relative overflow-hidden">
+                                    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/30 via-transparent to-black/20"></div>
+                                    <svg viewBox="0 0 200 100" class="w-full h-full drop-shadow-2xl animate-swim relative z-10">
+                                        <path d="M 20,50 Q 80,10 170,50 Q 80,90 20,50 Z" fill="url(#hilsaSilver)" stroke="#0e4b75" stroke-width="2"/>
+                                        <polygon points="170,50 195,28 188,50 195,72" fill="#94a3b8" stroke="#0e4b75" stroke-width="1.5"/>
+                                        <polygon points="85,25 110,10 118,25" fill="#cbd5e1" stroke="#0e4b75" stroke-width="1"/>
+                                        <polygon points="95,75 112,90 118,75" fill="#cbd5e1" stroke="#0e4b75" stroke-width="1"/>
+                                        <circle cx="45" cy="42" r="5.5" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"/>
+                                        <circle cx="44" cy="42" r="2.8" fill="#000000"/>
+                                        <circle cx="42.5" cy="40.5" r="1" fill="#ffffff"/>
+                                        <path d="M 58,34 Q 66,50 58,66" fill="none" stroke="#475569" stroke-width="2.5"/>
+                                        <path d="M 80,38 Q 86,45 80,52 M 95,34 Q 101,45 95,56 M 110,38 Q 116,45 110,52" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+                                        <defs>
+                                            <linearGradient id="hilsaSilver" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%" stop-color="#ffffff"/>
+                                                <stop offset="35%" stop-color="#e2e8f0"/>
+                                                <stop offset="70%" stop-color="#94a3b8"/>
+                                                <stop offset="100%" stop-color="#475569"/>
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                    <span class="absolute bottom-2 left-3 bg-white/80 backdrop-blur text-sky-950 text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow">ইলিশ (Hilsa)</span>
+                                </div>
+                                <span class="absolute -top-3 -right-3 bg-amber-400 text-amber-950 text-xs font-black px-3 py-1 rounded-full shadow-md border border-amber-200 flex items-center gap-1">👑 মাছের রাজা</span>
+                            </div>
+
+                            <div class="mt-4 flex flex-wrap gap-2 w-full justify-center">
+                                <button id="readAllBtn" onclick="readEntirePassage()" class="bg-gradient-to-r from-sky-600 to-cyan-600 hover:from-sky-700 hover:to-cyan-700 text-white font-bold px-5 py-2.5 rounded-2xl shadow-lg flex items-center justify-center gap-2 transform active:scale-95 transition text-sm sm:text-base">
+                                    <i id="playIcon" class="fas fa-volume-up text-lg"></i>
+                                    <span id="playBtnText">গল্পটি পুরো শোনো 🔊</span>
+                                </button>
+                                <button onclick="stopAudio()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-4 py-2.5 rounded-2xl shadow transition flex items-center justify-center gap-1 text-xs sm:text-sm">
+                                    <i class="fas fa-stop"></i>
+                                    <span>থামো</span>
+                                </button>
+                            </div>
+                            <p class="text-xs text-sky-800 font-medium mt-2">💡 যে কোনো বাক্যে টাচ করলে আলাদাভাবে উচ্চারণ শোনা যাবে</p>
+                        </div>
+
+                        <div class="lg:col-span-7 space-y-2">
+                            <div class="flex items-center justify-between mb-2 border-b border-sky-200 pb-2">
+                                <h2 class="text-xl font-bold text-sky-900 flex items-center gap-2">
+                                    <span>📖</span> পড়া শুনো ও রিডিং পড়ো:
+                                </h2>
+                                <span class="text-xs bg-sky-200 text-sky-900 font-bold px-2.5 py-1 rounded-full">১০টি বাক্য</span>
+                            </div>
+                            <div id="passageContainer" class="space-y-2 text-base sm:text-lg font-semibold text-slate-800"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-3xl p-4 sm:p-6 border-4 border-amber-200 shadow-lg">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl sm:text-2xl font-bold text-amber-950 flex items-center gap-2 font-title">
+                            <span>🔍</span> মূল শব্দগুলো চিনে নিই (Word Explorer)
+                        </h3>
+                        <span class="text-xs bg-amber-200 text-amber-900 font-bold px-3 py-1 rounded-full">শব্দে টাচ করো</span>
+                    </div>
+                    <div id="wordExplorerGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3"></div>
+                </div>
+            </section>
+
+            <section id="section-exercises" class="hidden space-y-8">
+                <div class="bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 p-4 rounded-3xl shadow-lg border-2 border-amber-500 flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-3xl">🏆</span>
+                        <div>
+                            <h3 class="text-lg font-black text-amber-950">তোমার অনুশীলনী স্কোর</h3>
+                            <p class="text-xs text-amber-900 font-semibold">সঠিক উত্তর দিয়ে সবগুলো তারকা অর্জন করো!</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 bg-white/90 backdrop-blur px-5 py-2 rounded-2xl shadow-inner">
+                        <div class="text-center">
+                            <span class="text-xs text-gray-500 font-bold block">মোট পয়েন্ট</span>
+                            <span id="exerciseScore" class="text-2xl font-black text-amber-600">০</span>
+                        </div>
+                        <div id="starBadge" class="text-2xl">⭐ ⭐ ⭐</div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-4 sm:p-6 border-4 border-sky-200 shadow-md space-y-4">
+                    <div class="flex items-center justify-between border-b border-sky-100 pb-3">
+                        <h3 class="text-lg sm:text-xl font-bold text-sky-950 flex items-center gap-2">
+                            <span>✍️</span> অনুশীলন ১: সঠিক শব্দ বেছে শূন্যস্থান পূরণ করো (বলি ও লিখি)
+                        </h3>
+                        <span class="bg-sky-100 text-sky-800 text-xs font-bold px-2.5 py-1 rounded-full">পাঠ্যবইয়ের অনুশীলনী</span>
+                    </div>
+                    <div id="fillBlanksContainer" class="space-y-4"></div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-4 sm:p-6 border-4 border-emerald-200 shadow-md space-y-4">
+                    <div class="flex items-center justify-between border-b border-emerald-100 pb-3">
+                        <h3 class="text-lg sm:text-xl font-bold text-emerald-950 flex items-center gap-2">
+                            <span>✅</span> অনুশীলন ২: বাক্যটি সত্য নাকি মিথ্যা?
+                        </h3>
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-full">যাচাই করি</span>
+                    </div>
+                    <div id="trueFalseContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-4 sm:p-6 border-4 border-indigo-200 shadow-md space-y-4">
+                    <div class="flex items-center justify-between border-b border-indigo-100 pb-3">
+                        <h3 class="text-lg sm:text-xl font-bold text-indigo-950 flex items-center gap-2">
+                            <span>🧩</span> অনুশীলন ৩: বর্ণে টাচ করে সঠিক শব্দ তৈরি করো!
+                        </h3>
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded-full">ইন্টারঅ্যাক্টিভ শব্দ গঠন</span>
+                    </div>
+                    <div id="unscrambleContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                </div>
+            </section>
+
+            <section id="section-game" class="hidden space-y-4">
+                <div class="bg-gradient-to-r from-sky-700 via-blue-700 to-indigo-800 rounded-3xl p-4 text-white shadow-xl border-4 border-sky-400">
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="bg-amber-400 text-amber-950 text-xs font-black px-2.5 py-0.5 rounded-full">এনিমেশন গেম</span>
+                                <span class="text-xs text-sky-200">ইন্টারঅ্যাক্টিভ সাঁতার গেম</span>
+                            </div>
+                            <h3 class="text-2xl sm:text-3xl font-title text-amber-300 mt-1">মাছের রাজা: সঠিক ইলিশটি ধরো! 🐟</h3>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="bg-white/20 backdrop-blur px-4 py-2 rounded-2xl text-center border border-white/30">
+                                <span class="text-[10px] uppercase tracking-wider block text-sky-200 font-bold">গেম স্কোর</span>
+                                <span id="gameScoreText" class="text-2xl font-black text-amber-300">০</span>
+                            </div>
+                            <button onclick="restartGame()" class="bg-amber-400 hover:bg-amber-300 text-amber-950 font-black px-4 py-3 rounded-2xl shadow-lg transition transform active:scale-95 text-sm flex items-center gap-1.5">
+                                <i class="fas fa-rotate-right"></i>
+                                <span>নতুন গেম</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 bg-sky-900/80 rounded-2xl p-3 border border-sky-400/50 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+                        <div>
+                            <span class="text-xs text-amber-300 font-bold block">🎯 তোমার লক্ষ্য:</span>
+                            <span id="gameTargetPrompt" class="text-lg sm:text-2xl font-black text-white">সঠিক উত্তর যুক্ত ইলিশ মাছটিতে টাচ করো!</span>
+                        </div>
+                        <div class="bg-amber-300/20 px-3 py-1.5 rounded-xl border border-amber-300/40 text-xs text-amber-200 font-bold">
+                            💡 ইঙ্গিত: পানিতে সাঁতার কাটা সঠিক মাছটি ছুঁয়ে দাও
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative w-full overflow-hidden rounded-3xl shadow-2xl border-4 border-sky-300">
+                    <canvas id="gameCanvas" class="w-full h-[380px] sm:h-[450px] block"></canvas>
+                    <div id="gameOverlay" class="absolute inset-0 bg-sky-950/70 backdrop-blur-sm hidden flex-col items-center justify-center text-white text-center p-6 space-y-4 z-20">
+                        <div class="text-6xl animate-bounce">🎉</div>
+                        <h3 id="gameOverlayTitle" class="text-3xl font-title text-amber-300">অসাধারণ খেলেছো!</h3>
+                        <p id="gameOverlayMsg" class="text-lg text-sky-100 font-medium max-w-md">তুমি পাঠ ৫০ এর সকল প্রশ্নের সঠিক উত্তর দিয়েছ!</p>
+                        <button onclick="restartGame()" class="bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-sky-950 font-black px-8 py-3 rounded-2xl text-lg shadow-xl transform active:scale-95 transition">পুনরায় খেলো 🔄</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-guide" class="hidden space-y-8">
+                <div class="bg-gradient-to-r from-teal-500 via-emerald-600 to-green-600 rounded-3xl p-6 text-white shadow-xl border-4 border-emerald-300 relative overflow-hidden">
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+                        <div class="space-y-2 text-center md:text-left">
+                            <div class="inline-flex items-center gap-2 bg-emerald-800/60 px-3 py-1 rounded-full text-xs font-bold text-emerald-100">
+                                <i class="fas fa-heart-pulse text-amber-300"></i>
+                                <span>স্বাস্থ্য সুরক্ষা বার্তা</span>
+                            </div>
+                            <h2 class="text-2xl sm:text-4xl font-title text-amber-200">👀 শিশুর চোখের সুরক্ষা ও নিরাপদ ব্যবহার</h2>
+                            <p class="text-xs sm:text-sm text-emerald-100 leading-relaxed max-w-2xl">
+                                ডিজিটাল ডিভাইসে পড়ার সময় কোমলমতি ১ম শ্রেণির শিশুদের চোখের বিশেষ যত্ন নেওয়া আবশ্যক। নিচে অভিভাবক ও শিক্ষকদের জন্য স্বাস্থ্যসম্মত টিপস দেওয়া হলো:
+                            </p>
+                        </div>
+                        <div class="bg-white/20 backdrop-blur p-4 rounded-3xl border border-white/30 text-center shrink-0">
+                            <span class="text-5xl">👁️</span>
+                            <span class="block text-xs font-black text-amber-200 mt-2">২০-২০-২০ নিয়ম</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <div class="bg-emerald-50 rounded-3xl p-5 border-2 border-emerald-200 shadow-md space-y-2 hover:shadow-lg transition">
+                        <div class="w-12 h-12 bg-emerald-500 text-white rounded-2xl flex items-center justify-center text-2xl shadow-sm">⏱️</div>
+                        <h4 class="text-lg font-bold text-emerald-950">১. ২০-২০-২০ নিয়ম পালন</h4>
+                        <p class="text-xs text-emerald-900 leading-relaxed font-medium">প্রতি <strong>২০ মিনিট</strong> পর পর শিশুকে স্ক্রিন থেকে চোখ সরিয়ে অন্তত <strong>২০ ফুট</strong> দূরের কোনো বস্তু বা গাছের দিকে <strong>২০ সেকেন্ড</strong> তাকিয়ে থাকতে বলুন। এতে চোখের পেশি শিথিল হয়।</p>
+                    </div>
+                    <div class="bg-emerald-50 rounded-3xl p-5 border-2 border-emerald-200 shadow-md space-y-2 hover:shadow-lg transition">
+                        <div class="w-12 h-12 bg-teal-500 text-white rounded-2xl flex items-center justify-center text-2xl shadow-sm">📏</div>
+                        <h4 class="text-lg font-bold text-teal-950">২. সঠিক দূরত্ব বজায় রাখা</h4>
+                        <p class="text-xs text-teal-900 leading-relaxed font-medium">মোবাইল বা ট্যাব চোখের খুব কাছে রাখতে দেবেন না। চোখ থেকে অন্তত <strong>১.৫ থেকে ২ ফুট (১৬-২৪ ইঞ্চি)</strong> দূরত্ব রেখে ডিভাইস ধরতে উৎসাহিত করুন।</p>
+                    </div>
+                    <div class="bg-emerald-50 rounded-3xl p-5 border-2 border-emerald-200 shadow-md space-y-2 hover:shadow-lg transition">
+                        <div class="w-12 h-12 bg-amber-500 text-white rounded-2xl flex items-center justify-center text-2xl shadow-sm">💡</div>
+                        <h4 class="text-lg font-bold text-amber-950">৩. পর্যাপ্ত আলো ও অন্ধকার এড়ানো</h4>
+                        <p class="text-xs text-amber-900 leading-relaxed font-medium">কখনোই অন্ধকার ঘরে বা শুধু স্ক্রিনের আলোতে শিশুকে শিখতে দেবেন না। ঘরের পর্যাপ্ত আলো বা দিনের স্বাভাবিক আলোতে অ্যাপটি ব্যবহার নিশ্চিত করুন।</p>
+                    </div>
+                    <div class="bg-emerald-50 rounded-3xl p-5 border-2 border-emerald-200 shadow-md space-y-2 hover:shadow-lg transition">
+                        <div class="w-12 h-12 bg-cyan-500 text-white rounded-2xl flex items-center justify-center text-2xl shadow-sm">✨</div>
+                        <h4 class="text-lg font-bold text-cyan-950">৪. চোখের পলক ফেলা</h4>
+                        <p class="text-xs text-cyan-900 leading-relaxed font-medium">ডিজিটাল স্ক্রিনে মনোযোগ দেওয়ার সময় শিশুরা পলক ফেলা ভুলে যায়। মাঝে মাঝে ঘন ঘন চোখের পলক ফেলার পরামর্শ দিন যেন চোখ শুষ্ক না হয়ে যায়।</p>
+                    </div>
+                    <div class="bg-emerald-50 rounded-3xl p-5 border-2 border-emerald-200 shadow-md space-y-2 hover:shadow-lg transition">
+                        <div class="w-12 h-12 bg-sky-500 text-white rounded-2xl flex items-center justify-center text-2xl shadow-sm">⏳</div>
+                        <h4 class="text-lg font-bold text-sky-950">৫. দৈনিক স্ক্রিন টাইম নির্ধারণ</h4>
+                        <p class="text-xs text-sky-900 leading-relaxed font-medium">১ম শ্রেণির শিশুর ডিজিটাল পড়াশোনার সময় একনাগাড়ে <strong>২০-২৫ মিনিটের বেশি</strong> হওয়া উচিত নয়। দিনে মোট শিক্ষামূলক সময় ৪৫-৬০ মিনিটে সীমিত রাখুন।</p>
+                    </div>
+                    <div class="bg-emerald-50 rounded-3xl p-5 border-2 border-emerald-200 shadow-md space-y-2 hover:shadow-lg transition">
+                        <div class="w-12 h-12 bg-indigo-500 text-white rounded-2xl flex items-center justify-center text-2xl shadow-sm">☀️</div>
+                        <h4 class="text-lg font-bold text-indigo-950">৬. স্ক্রিনের ব্রাইটনেস ও নাইট মোড</h4>
+                        <p class="text-xs text-indigo-900 leading-relaxed font-medium">ডিভাইসের উজ্জ্বলতা ঘরের আলোর সাথে সামঞ্জস্যপূর্ণ রাখুন। অতিরিক্ত ব্রাইটনেস চোখের ক্লান্তি বাড়ায়। বিকেলে বা সন্ধ্যায় পড়তে বসলে 'Eye Comfort Shield' চালু রাখুন।</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 border-4 border-emerald-200 shadow-lg space-y-5">
+                    <div class="border-b border-emerald-100 pb-3 flex items-center justify-between">
+                        <h3 class="text-xl sm:text-2xl font-bold text-emerald-950 flex items-center gap-2 font-title">
+                            <span>🎓</span> অভিভাবক ও শিক্ষকের নির্দেশনা (Pedagogical Guidelines)
+                        </h3>
+                        <span class="bg-emerald-100 text-emerald-900 text-xs font-bold px-3 py-1 rounded-full">NCTB পাঠ্যক্রম উপযোগী</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-slate-700 text-xs sm:text-sm leading-relaxed">
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+                            <h5 class="font-black text-sky-900 text-base flex items-center gap-2"><span>📖</span> ১. পাঠ অনুধাবন ও রিডিং অনুশীলন:</h5>
+                            <ul class="list-disc list-inside space-y-1.5 text-slate-600">
+                                <li>অ্যাপের 'পাঠ পড়া' ট্যাবে থাকা বাক্যগুলোতে শিশুকে আঙুল দিয়ে টাচ করতে বলুন এবং সাথে সাথে উচ্চারণ শুনতে দিন।</li>
+                                <li>প্রথমে ডিজিটাল আওয়াজ শুনে শিশুকে বাক্যটি স্পষ্ট ও উচ্চস্বরে উচ্চারণ করতে উৎসাহিত করুন।</li>
+                                <li>'ধীরে' মোড বাছাই করে প্রাথমিক স্তরের শিক্ষার্থীদের প্রতিটি শব্দের ধ্বনি ভালোভাবে অনুধাবন করতে সাহায্য করুন।</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+                            <h5 class="font-black text-amber-900 text-base flex items-center gap-2"><span>🔍</span> ২. বর্ণ ও কার-চিহ্ন পরিচয়:</h5>
+                            <ul class="list-disc list-inside space-y-1.5 text-slate-600">
+                                <li>'Word Explorer' অংশে ক্লিক করে ই-কার (ি), ঈ-কার (ী), আ-কার (া) যুক্ত শব্দগুলোর ধ্বনি শেখান।</li>
+                                <li>শব্দটি কীভাবে গঠিত হয়েছে (যেমন: ই + ল + ি + শ = ইলিশ) তা দেখতে ও শুনতে উৎসাহিত করুন।</li>
+                                <li>ইলিশ মাছের রূপালি রং, আবাসস্থল (সাগর) এবং খাদ্যাভ্যাস নিয়ে শ্রেণিকক্ষে বা বাড়িতে গল্প বলুন।</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+                            <h5 class="font-black text-indigo-900 text-base flex items-center gap-2"><span>✍️</span> ৩. সক্রিয় অনুশীলনী ও মূল্যায়ন:</h5>
+                            <ul class="list-disc list-inside space-y-1.5 text-slate-600">
+                                <li>অনুশীলনী অংশে বাক্য পূরণ, সত্য-মিথ্যা ও বর্ণ জোড়া দেওয়ার মাধ্যমে শিশুর শেখা স্থায়ী হয়।</li>
+                                <li>ভুল উত্তর দিলে শিশুকে বকা না দিয়ে 'আবার চেষ্টা করো' বোতাম চেপে উৎসাহ দিন।</li>
+                                <li>প্রতিটি অনুশীলনী শেষে অর্জিত তারকা (Star Badge) দেখিয়ে শিশুকে বাহবা দিন।</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+                            <h5 class="font-black text-emerald-900 text-base flex items-center gap-2"><span>🎮</span> ৪. গেম ভিত্তিক আনন্দময় শিখন:</h5>
+                            <ul class="list-disc list-inside space-y-1.5 text-slate-600">
+                                <li>'মাছের গেম' কেবল আনন্দের জন্য নয়, এটি শিশুর মনযোগ ও সঠিক শব্দ নির্বাচনের দক্ষতা বাড়ায়।</li>
+                                <li>স্ক্রিনে নাম ওঠা ইলিশ মাছটি ধরে শিশু প্রশ্নের উত্তর মিলিয়ে নিতে পারে।</li>
+                                <li>গেম খেলার পর শিশুকে ইলিশ মাছ আঁকা বা খাতায় বানান লেখার বাস্তব কাজ দিন।</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="bg-slate-100 p-5 text-center text-gray-600 text-xs sm:text-sm border-t border-gray-200 space-y-2">
+            <p class="font-bold text-sky-800">জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড (NCTB) ১ম শ্রেণি "আমার বাংলা বই" (পাঠ ৫০)</p>
+            <div class="inline-block bg-gradient-to-r from-sky-500 via-amber-500 to-rose-500 p-0.5 rounded-2xl shadow-md my-1">
+                <div class="bg-white px-5 py-2 rounded-[14px] flex items-center justify-center gap-2 text-sky-950 font-bold text-xs sm:text-sm">
+                    <span class="text-amber-500 text-base">🎨</span>
+                    <span>সার্বিক পরিকল্পনা ও সুদৃশ্য ডিজাইন:</span>
+                    <span class="bg-gradient-to-r from-amber-600 via-rose-600 to-purple-600 bg-clip-text text-transparent font-black text-sm sm:text-lg drop-shadow-sm">মো: সাইফুল্লাহ সরোয়ার</span>
+                    <span class="text-amber-500 text-base">⭐</span>
+                </div>
+            </div>
+            <p class="text-gray-400 text-[11px] sm:text-xs">শিশুদের জন্য সহজ ও মজাদার ইন্টারঅ্যাক্টিভ বাংলা ডিজিটাল শিক্ষামূলক অ্যাপ • ২০২৬</p>
+        </footer>
+    </div>
+
+    <!-- ============================================================
+         PRINT OPTION MODAL
+         ============================================================ -->
+    <div id="printModal" class="no-print fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-[60] hidden items-center justify-center p-3 sm:p-4">
+        <div class="bg-white rounded-3xl max-w-xl w-full shadow-2xl overflow-hidden border-4 border-emerald-200 max-h-[92vh] flex flex-col">
+            <div class="bg-gradient-to-r from-emerald-600 to-teal-600 p-4 text-white flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-print text-2xl text-amber-200"></i>
+                    <div>
+                        <h3 class="text-lg sm:text-xl font-black">প্রিন্ট উপকরণ তৈরি করো</h3>
+                        <p class="text-[11px] text-emerald-100">শ্রেণিকক্ষের উপস্থাপন ও কার্যপত্রের জন্য</p>
+                    </div>
+                </div>
+                <button onclick="closePrintModal()" class="bg-white/20 hover:bg-white/30 w-9 h-9 rounded-full flex items-center justify-center transition">
+                    <i class="fas fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div class="p-4 sm:p-5 overflow-y-auto space-y-4">
+                <p class="text-xs text-slate-600 font-semibold bg-sky-50 border border-sky-200 rounded-xl p-3">
+                    💡 যেসব অংশ প্রিন্টে চাও, সেগুলোতে টিক দাও। এরপর <strong>"প্রিন্ট করুন"</strong> চাপলে A4 পেজে সুন্দরভাবে সাজানো কার্যপত্র তৈরি হবে।
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <label class="flex items-center gap-2.5 bg-slate-50 hover:bg-sky-50 border-2 border-slate-200 hover:border-sky-300 rounded-xl p-3 cursor-pointer transition">
+                        <input type="checkbox" id="pr-story" checked class="w-4 h-4 accent-sky-600">
+                        <span class="text-sm font-bold text-slate-800">📖 পাঠ (১০টি বাক্য)</span>
+                    </label>
+                    <label class="flex items-center gap-2.5 bg-slate-50 hover:bg-amber-50 border-2 border-slate-200 hover:border-amber-300 rounded-xl p-3 cursor-pointer transition">
+                        <input type="checkbox" id="pr-words" checked class="w-4 h-4 accent-amber-600">
+                        <span class="text-sm font-bold text-slate-800">🔍 মূল শব্দভাণ্ডার</span>
+                    </label>
+                    <label class="flex items-center gap-2.5 bg-slate-50 hover:bg-indigo-50 border-2 border-slate-200 hover:border-indigo-300 rounded-xl p-3 cursor-pointer transition">
+                        <input type="checkbox" id="pr-ex1" checked class="w-4 h-4 accent-indigo-600">
+                        <span class="text-sm font-bold text-slate-800">✍️ অনুশীলন ১ (শূন্যস্থান)</span>
+                    </label>
+                    <label class="flex items-center gap-2.5 bg-slate-50 hover:bg-indigo-50 border-2 border-slate-200 hover:border-indigo-300 rounded-xl p-3 cursor-pointer transition">
+                        <input type="checkbox" id="pr-ex2" checked class="w-4 h-4 accent-indigo-600">
+                        <span class="text-sm font-bold text-slate-800">✅ অনুশীলন ২ (সত্য/মিথ্যা)</span>
+                    </label>
+                    <label class="flex items-center gap-2.5 bg-slate-50 hover:bg-indigo-50 border-2 border-slate-200 hover:border-indigo-300 rounded-xl p-3 cursor-pointer transition">
+                        <input type="checkbox" id="pr-ex3" checked class="w-4 h-4 accent-indigo-600">
+                        <span class="text-sm font-bold text-slate-800">🧩 অনুশীলন ৩ (বর্ণ সাজাও)</span>
+                    </label>
+                    <label class="flex items-center gap-2.5 bg-slate-50 hover:bg-emerald-50 border-2 border-slate-200 hover:border-emerald-300 rounded-xl p-3 cursor-pointer transition">
+                        <input type="checkbox" id="pr-key" class="w-4 h-4 accent-emerald-600">
+                        <span class="text-sm font-bold text-slate-800">🗝️ উত্তরপত্র (শিক্ষকের জন্য)</span>
+                    </label>
+                    <label class="flex items-center gap-2.5 bg-slate-50 hover:bg-teal-50 border-2 border-slate-200 hover:border-teal-300 rounded-xl p-3 cursor-pointer transition">
+                        <input type="checkbox" id="pr-guide" class="w-4 h-4 accent-teal-600">
+                        <span class="text-sm font-bold text-slate-800">🎓 শিক্ষক নির্দেশনা</span>
+                    </label>
+                    <label class="flex items-center gap-2.5 bg-slate-50 hover:bg-teal-50 border-2 border-slate-200 hover:border-teal-300 rounded-xl p-3 cursor-pointer transition">
+                        <input type="checkbox" id="pr-eye" class="w-4 h-4 accent-teal-600">
+                        <span class="text-sm font-bold text-slate-800">👀 চোখের যত্ন (২০-২০-২০)</span>
+                    </label>
+                </div>
+                <div class="flex items-center justify-between gap-2 bg-amber-50 border border-amber-200 rounded-xl p-3">
+                    <span class="text-xs font-bold text-amber-900">সব নির্বাচন করো:</span>
+                    <div class="flex gap-2">
+                        <button onclick="selectAllPrint(true)" class="text-xs font-black bg-amber-400 hover:bg-amber-300 text-amber-950 px-3 py-1.5 rounded-lg transition">সব টিক দাও</button>
+                        <button onclick="selectAllPrint(false)" class="text-xs font-black bg-slate-200 hover:bg-slate-300 text-slate-700 px-3 py-1.5 rounded-lg transition">সব মুছো</button>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row gap-2.5">
+                <button onclick="generatePrint()" class="flex-1 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-black py-3 rounded-2xl shadow-lg transition active:scale-95 flex items-center justify-center gap-2">
+                    <i class="fas fa-print"></i> প্রিন্ট করুন
+                </button>
+                <button onclick="closePrintModal()" class="sm:w-32 bg-white hover:bg-slate-100 text-slate-700 font-bold py-3 rounded-2xl border-2 border-slate-200 transition active:scale-95">বাতিল</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         INSTALL MODAL — ইনস্টল গাইড
+         ============================================================ -->
+    <div id="installModal" class="no-print fixed inset-0 bg-slate-900/75 backdrop-blur-sm z-[70] hidden items-center justify-center p-3 sm:p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full shadow-2xl overflow-hidden border-4 border-pink-200 max-h-[92vh] flex flex-col">
+            <div class="bg-gradient-to-r from-pink-600 to-rose-600 p-4 text-white flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-circle-down text-2xl text-amber-200"></i>
+                    <div>
+                        <h3 class="text-lg sm:text-xl font-black">অ্যাপটি ইনস্টল করুন</h3>
+                        <p class="text-[11px] text-pink-100">হোম স্ক্রিনে যোগ করে অফলাইনে চালান</p>
+                    </div>
+                </div>
+                <button onclick="closeInstallModal()" class="bg-white/20 hover:bg-white/30 w-9 h-9 rounded-full flex items-center justify-center transition">
+                    <i class="fas fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div class="p-4 sm:p-5 overflow-y-auto space-y-3">
+                <div id="installNativeBox" class="hidden bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-4 text-center space-y-2">
+                    <div class="text-4xl">✨</div>
+                    <p class="text-sm font-bold text-emerald-900">আপনার ব্রাউজার সরাসরি ইনস্টল সাপোর্ট করছে!</p>
+                    <button onclick="triggerNativeInstall()" class="w-full bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-black py-3 rounded-2xl shadow-lg transition active:scale-95">
+                        <i class="fas fa-download mr-1"></i> এখনই ইনস্টল করুন
+                    </button>
+                </div>
+
+                <p id="installHeaderMsg" class="text-xs text-slate-600 font-semibold bg-pink-50 border border-pink-200 rounded-xl p-3">
+                    💡 আপনার ব্রাউজার বা ডিভাইস অনুযায়ী নিচের ধাপগুলো অনুসরণ করে অ্যাপটি ইনস্টল করুন:
+                </p>
+
+                <div id="installSteps" class="space-y-2.5 text-sm">
+                    <!-- Filled by JS based on platform -->
+                </div>
+
+                <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-900 font-medium">
+                    <strong>📌 নোট:</strong> ইনস্টল করার পর অ্যাপটি ডিভাইসের হোম স্ক্রিন/ডেস্কটপে একটি আলাদা আইকন হিসেবে দেখা যাবে এবং ইন্টারনেট ছাড়াও চলবে।
+                </div>
+            </div>
+
+            <div class="p-4 bg-slate-50 border-t border-slate-200">
+                <button onclick="closeInstallModal()" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-2xl transition active:scale-95">
+                    বুঝেছি, ধন্যবাদ 👍
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="printArea"></div>
+
+    <script>
+        /* ============================================================
+           ✅ PWA / INSTALL SYSTEM
+           ============================================================ */
+        let deferredInstallPrompt = null;
+        let isInstalled = false;
+
+        // Check if already installed (standalone mode)
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+            isInstalled = true;
+        }
+
+        // Dynamically create the manifest file (as a blob URL)
+        function createManifest() {
+            const iconSVG192 = "data:image/svg+xml," + encodeURIComponent(
+                `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+                    <rect width="192" height="192" fill="#0284c7" rx="36"/>
+                    <text y="140" x="96" text-anchor="middle" font-size="120">🐟</text>
+                </svg>`
+            );
+            const iconSVG512 = "data:image/svg+xml," + encodeURIComponent(
+                `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <rect width="512" height="512" fill="#0284c7" rx="96"/>
+                    <text y="380" x="256" text-anchor="middle" font-size="340">🐟</text>
+                </svg>`
+            );
+
+            const manifest = {
+                name: "আমার বাংলা বই - পাঠ ৫০ : মাছের রাজা (ইলিশ)",
+                short_name: "মাছের রাজা",
+                description: "১ম শ্রেণির বাংলা পাঠ ৫০ - মাছের রাজা (ইলিশ) ইন্টারঅ্যাকটিভ শিক্ষামূলক অ্যাপ",
+                start_url: ".",
+                scope: ".",
+                display: "standalone",
+                orientation: "any",
+                background_color: "#e0f2fe",
+                theme_color: "#0284c7",
+                lang: "bn",
+                dir: "ltr",
+                categories: ["education", "kids"],
+                icons: [
+                    { src: iconSVG192, sizes: "192x192", type: "image/svg+xml", purpose: "any" },
+                    { src: iconSVG192, sizes: "192x192", type: "image/svg+xml", purpose: "maskable" },
+                    { src: iconSVG512, sizes: "512x512", type: "image/svg+xml", purpose: "any" },
+                    { src: iconSVG512, sizes: "512x512", type: "image/svg+xml", purpose: "maskable" }
+                ]
+            };
+
+            try {
+                const blob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('link');
+                link.rel = 'manifest';
+                link.href = url;
+                document.head.appendChild(link);
+                console.log('✅ Manifest created (blob URL)');
+            } catch (e) {
+                console.warn('Manifest creation failed:', e);
+            }
+        }
+
+        // Try to register an inline service worker (works only on HTTPS/localhost)
+        function registerServiceWorker() {
+            if (!('serviceWorker' in navigator)) {
+                console.log('Service Worker not supported');
+                return;
+            }
+
+            // Only attempt if served over http(s) — file:// won't work
+            if (location.protocol === 'file:') {
+                console.log('Service Worker skipped (file:// protocol)');
+                return;
+            }
+
+            const swCode = `
+                self.addEventListener('install', (e) => { self.skipWaiting(); });
+                self.addEventListener('activate', (e) => { e.waitUntil(self.clients.claim()); });
+                self.addEventListener('fetch', (e) => {
+                    e.respondWith(
+                        fetch(e.request).catch(() => caches.match(e.request))
+                    );
+                });
+            `;
+
+            try {
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+                navigator.serviceWorker.register(swUrl, { scope: './' })
+                    .then(() => console.log('✅ Service Worker registered'))
+                    .catch((err) => console.log('SW registration failed (expected on file://):', err.message));
+            } catch (e) {
+                console.log('SW setup error:', e);
+            }
+        }
+
+        // Capture the install prompt event
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredInstallPrompt = e;
+            console.log('✅ beforeinstallprompt captured');
+        });
+
+        // Listen for successful install
+        window.addEventListener('appinstalled', () => {
+            isInstalled = true;
+            deferredInstallPrompt = null;
+            const btn = document.getElementById('installBtn');
+            const btnText = document.getElementById('installBtnText');
+            if (btn) {
+                btn.classList.remove('install-pulse');
+                btn.classList.add('bg-green-600', 'hover:bg-green-500');
+                btn.classList.remove('bg-gradient-to-r', 'from-pink-600', 'to-rose-600', 'hover:from-pink-500', 'hover:to-rose-500');
+            }
+            if (btnText) btnText.innerText = 'ইনস্টল ✓';
+            showToast('🎉 অ্যাপটি সফলভাবে ইনস্টল হয়েছে!');
+        });
+
+        // Handle install button click
+        function handleInstallClick() {
+            playSound('click');
+            stopAudio();
+
+            // Already installed?
+            if (isInstalled || window.matchMedia('(display-mode: standalone)').matches) {
+                showToast('✅ অ্যাপটি ইতিমধ্যে ইনস্টল করা আছে!');
+                return;
+            }
+
+            // Native prompt is available
+            if (deferredInstallPrompt) {
+                openInstallModal(true);
+                return;
+            }
+
+            // Otherwise show manual instructions
+            openInstallModal(false);
+        }
+
+        // Trigger the native install prompt
+        function triggerNativeInstall() {
+            if (!deferredInstallPrompt) {
+                showToast('⚠️ ইনস্টল প্রম্পট এখন পাওয়া যাচ্ছে না। ম্যানুয়াল পদ্ধতি ব্যবহার করুন।');
+                openInstallModal(false);
+                return;
+            }
+            deferredInstallPrompt.prompt();
+            deferredInstallPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted install');
+                } else {
+                    console.log('User dismissed install');
+                }
+                deferredInstallPrompt = null;
+                closeInstallModal();
+            });
+        }
+
+        // Detect platform for tailored instructions
+        function detectPlatform() {
+            const ua = navigator.userAgent || navigator.vendor || window.opera;
+            if (/android/i.test(ua)) return 'android';
+            if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) return 'ios';
+            if (/windows/i.test(ua)) return 'windows';
+            if (/mac/i.test(ua)) return 'mac';
+            if (/linux/i.test(ua)) return 'linux';
+            return 'desktop';
+        }
+
+        // Build the steps HTML based on platform
+        function buildInstallSteps() {
+            const platform = detectPlatform();
+            const stepsBox = document.getElementById('installSteps');
+
+            const steps = [];
+
+            if (platform === 'android') {
+                steps.push({
+                    icon: '🌐',
+                    title: 'Chrome / Edge ব্রাউজারে',
+                    body: 'উপরে-ডানে থ্রি-ডট মেনু (⋮) চাপুন → <strong>"Add to Home screen"</strong> বা <strong>"Install app"</strong> নির্বাচন করুন।'
+                });
+                steps.push({
+                    icon: '📱',
+                    title: 'Samsung Internet-এ',
+                    body: 'নিচে মেনু বাটন চাপুন → <strong>"Add page to"</strong> → <strong>"Home screen"</strong> নির্বাচন করুন।'
+                });
+                steps.push({
+                    icon: '⚡',
+                    title: 'Firefox-এ',
+                    body: 'থ্রি-ডট মেনু → <strong>"Install"</strong> বা <strong>"Add to Home screen"</strong> নির্বাচন করুন।'
+                });
+            } else if (platform === 'ios') {
+                steps.push({
+                    icon: '🧭',
+                    title: 'Safari ব্রাউজারে (iOS)',
+                    body: 'নিচে <strong>Share</strong> আইকন (□↑) চাপুন → নিচে স্ক্রল করে <strong>"Add to Home Screen"</strong> নির্বাচন করুন → <strong>"Add"</strong> চাপুন।'
+                });
+                steps.push({
+                    icon: '🌐',
+                    title: 'Chrome-এ (iOS)',
+                    body: 'উপরে-ডানে থ্রি-ডট → <strong>"Add to Home Screen"</strong> নির্বাচন করুন।'
+                });
+            } else if (platform === 'windows' || platform === 'mac' || platform === 'linux' || platform === 'desktop') {
+                steps.push({
+                    icon: '💻',
+                    title: 'Chrome (ডেস্কটপ)',
+                    body: 'অ্যাড্রেস বারের ডানদিকে <strong>⊕ ইনস্টল আইকন</strong> চাপুন। অথবা থ্রি-ডট মেনু → <strong>"Install মাছের রাজা…"</strong> নির্বাচন করুন।'
+                });
+                steps.push({
+                    icon: '🦊',
+                    title: 'Edge (ডেস্কটপ)',
+                    body: 'অ্যাড্রেস বারে <strong>⊕ Install</strong> আইকন চাপুন। অথবা থ্রি-ডট মেনু → <strong>Apps → Install this site as an app</strong> নির্বাচন করুন।'
+                });
+                steps.push({
+                    icon: '🧭',
+                    title: 'Safari (Mac)',
+                    body: 'উপরে <strong>File</strong> মেনু → <strong>"Add to Dock…"</strong> নির্বাচন করুন।'
+                });
+                steps.push({
+                    icon: '🔥',
+                    title: 'Firefox (ডেস্কটপ)',
+                    body: 'Firefox সরাসরি PWA ইনস্টল সাপোর্ট করে না। Chrome বা Edge ব্যবহার করুন।'
+                });
+            }
+
+            // Common final tip
+            steps.push({
+                icon: '✅',
+                title: 'ইনস্টলের পর',
+                body: 'হোম স্ক্রিন / ডেস্কটপে <strong>🐟 মাছের রাজা</strong> আইকন দেখতে পাবেন — সেটি চেপে অ্যাপটি সরাসরি খুলুন, ইন্টারনেট ছাড়াও চলবে।'
+            });
+
+            stepsBox.innerHTML = steps.map((s, i) => `
+                <div class="flex gap-3 bg-slate-50 hover:bg-pink-50 border-2 border-slate-200 hover:border-pink-300 rounded-2xl p-3 transition">
+                    <div class="text-2xl shrink-0">${s.icon}</div>
+                    <div class="space-y-0.5">
+                        <p class="font-black text-slate-900 text-sm">${i + 1}. ${s.title}</p>
+                        <p class="text-xs text-slate-600 leading-relaxed">${s.body}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Open install modal
+        function openInstallModal(hasNative) {
+            buildInstallSteps();
+
+            const nativeBox = document.getElementById('installNativeBox');
+            const headerMsg = document.getElementById('installHeaderMsg');
+
+            if (hasNative && deferredInstallPrompt) {
+                nativeBox.classList.remove('hidden');
+                headerMsg.innerText = '💡 অথবা নিচের ম্যানুয়াল পদ্ধতিগুলোও ব্যবহার করতে পারেন:';
+            } else {
+                nativeBox.classList.add('hidden');
+                headerMsg.innerText = '💡 আপনার ব্রাউজার বা ডিভাইস অনুযায়ী নিচের ধাপগুলো অনুসরণ করুন:';
+            }
+
+            const m = document.getElementById('installModal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+        }
+
+        function closeInstallModal() {
+            const m = document.getElementById('installModal');
+            m.classList.add('hidden');
+            m.classList.remove('flex');
+        }
+
+        // Initialize PWA features on load
+        createManifest();
+        registerServiceWorker();
+
+        // Update install button text if already installed
+        window.addEventListener('load', () => {
+            if (isInstalled || window.matchMedia('(display-mode: standalone)').matches) {
+                const btn = document.getElementById('installBtn');
+                const btnText = document.getElementById('installBtnText');
+                if (btn) {
+                    btn.classList.remove('install-pulse');
+                    btn.classList.add('bg-green-600', 'hover:bg-green-500');
+                    btn.classList.remove('bg-gradient-to-r', 'from-pink-600', 'to-rose-600');
+                }
+                if (btnText) btnText.innerText = 'ইনস্টল ✓';
+            }
+        });
+
+        /* ============================================================
+           MAIN APP LOGIC (সংক্ষেপে — অপরিবর্তিত)
+           ============================================================ */
+        let audioEnabled = true;
+        let currentSpeechRate = 0.85;
+        let currentUtterance = null;
+        let activeReadingIndex = -1;
+
+        const BN_DIGITS = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+        function toBn(value) { return String(value).replace(/\d/g, d => BN_DIGITS[+d]); }
+
+        const positivePraises = ["বাহবা সুন্দর!", "অসাধারণ হয়েছে!", "খুব ভালো!", "অপূর্ব!", "তুমি দারুণ পারো!"];
+        const retryEncouragements = ["আবার চেষ্টা করো!", "চিন্তা করে আবার ট্রাই করো!", "হলো না, আবার চেষ্টা করো!"];
+        function getRandomItem(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+        function getKarNameSpoken(str) {
+            if (!str) return '';
+            return str.replace(/\+/g, ' ').replace(/া/g, ' আ-কার ').replace(/ি/g, ' ই-কার ')
+                .replace(/ী/g, ' ঈ-কার ').replace(/ু/g, ' উ-কার ').replace(/ূ/g, ' ঊ-কার ')
+                .replace(/ৃ/g, ' ঋ-কার ').replace(/ে/g, ' এ-কার ').replace(/ৈ/g, ' ঐ-কার ')
+                .replace(/ো/g, ' ও-কার ').replace(/ৌ/g, ' ঔ-কার ');
+        }
+
+        const lessonSentences = [
+            "ইলিশ আমাদের জাতীয় মাছ।", "ইলিশ মাছের রং রূপালি।", "ইলিশ মাছ সাগরে থাকে।",
+            "ডিম দেওয়ার সময়ে নদীতে আসে।", "ইলিশ হলো মাছের রাজা।", "ইলিশ ভাজা খেতে মজা।",
+            "আমি ইলিশ মাছ খাই।", "মা ইলিশ মাছ খান।", "বাবা ইলিশ মাছ খান।", "আমরা সবাই ইলিশ মাছ খাই।"
+        ];
+
+        const vocabularyList = [
+            { word: "ইলিশ", emoji: "🐟", meaning: "আমাদের জাতীয় মাছ", breakdown: "ই + ল + ি + শ", spokenSpelling: "ই, ল-এ ই-কার লি, শ। ইলিশ" },
+            { word: "জাতীয়", emoji: "🇧🇩", meaning: "দেশের নিজস্ব প্রতীক", breakdown: "জ + া + ত + ী + য়", spokenSpelling: "জ-এ আ-কার জা, ত-এ ঈ-কার তী, য়। জাতীয়" },
+            { word: "রূপালি", emoji: "✨", meaning: "রূপার মতো উজ্জ্বল রং", breakdown: "র + ূ + প + া + ল + ি", spokenSpelling: "র-এ ঊ-কার রূ, প-এ আ-কার পা, ল-এ ই-কার লি। রূপালি" },
+            { word: "সাগর", emoji: "🌊", meaning: "বিশাল নোনা জলের জলাশয়", breakdown: "স + া + গ + র", spokenSpelling: "স-এ আ-কার সা, গ, র। সাগর" },
+            { word: "রাজা", emoji: "👑", meaning: "সবার প্রধান বা সেরা", breakdown: "র + া + জ + া", spokenSpelling: "র-এ আ-কার রা, জ-এ আ-কার জা। রাজা" }
+        ];
+
+        const fillBlanksData = [
+            { id: 1, prompt: "আমাদের জাতীয় মাছ কোনটি?", options: ["রুই", "ইলিশ", "বোয়াল"], correct: "ইলিশ", template: "{SELECTED} আমাদের জাতীয় মাছ।" },
+            { id: 2, prompt: "ইলিশ মাছ কোথায় থাকে?", options: ["সাগরে", "পুকুরে", "বিলে"], correct: "সাগরে", template: "ইলিশ {SELECTED} থাকে।" },
+            { id: 3, prompt: "ইলিশকে কী বলা হয়?", options: ["মাছের রাজা", "মাছের রানি", "মাছের ভাই"], correct: "মাছের রাজা", template: "ইলিশকে {SELECTED} বলা হয়।" },
+            { id: 4, prompt: "ইলিশ মাছের রং কেমন?", options: ["লাল", "রূপালি", "কালো"], correct: "রূপালি", template: "ইলিশ মাছের রং {SELECTED}।" }
+        ];
+
+        const trueFalseData = [
+            { id: 1, text: "ইলিশ মাছের রং লাল।", isTrue: false },
+            { id: 2, text: "ইলিশ হলো মাছের রাজা।", isTrue: true },
+            { id: 3, text: "ইলিশ মাছ শুধু পুকুরে থাকে।", isTrue: false },
+            { id: 4, text: "ইলিশ ভাজা খেতে অনেক মজা।", isTrue: true }
+        ];
+
+        const unscrambleData = [
+            { id: 1, scrambled: ["লি", "রূ", "পা"], correct: "রূপালি", hint: "ইলিশ মাছের রং" },
+            { id: 2, scrambled: ["শ", "ই", "লি"], correct: "ইলিশ", hint: "আমাদের জাতীয় মাছ" },
+            { id: 3, scrambled: ["জা", "রা"], correct: "রাজা", hint: "মাছের সেরা অবস্থান" },
+            { id: 4, scrambled: ["গ", "সা", "র"], correct: "সাগর", hint: "যেখানে ইলিশ থাকে" }
+        ];
+
+        const gameQuestions = [
+            { question: "আমাদের জাতীয় মাছ কোনটি?", options: ["ইলিশ", "রুই", "কাতলা", "মৃগেল"], answer: "ইলিশ" },
+            { question: "ইলিশ মাছের রং কেমন?", options: ["লাল", "সবুজ", "রূপালি", "হলুদ"], answer: "রূপালি" },
+            { question: "ইলিশ মাছ কোথায় থাকে?", options: ["পুকুরে", "সাগরে", "ডোবায়", "খালে"], answer: "সাগরে" },
+            { question: "ইলিশকে কী বলা হয়?", options: ["মাছের উজির", "মাছের রানি", "মাছের রাজা", "মাছের সৈন্য"], answer: "মাছের রাজা" },
+            { question: "ইলিশ ভাজা খেতে কেমন?", options: ["তিক্ত", "মজা", "ঝাল", "টক"], answer: "মজা" }
+        ];
+
+        let fillBlanksAnswers = {};
+        let trueFalseAnswers = {};
+        let unscrambleAnswers = {};
+
+        let audioCtx = null;
+        function getAudioContext() {
+            if (!audioCtx) {
+                const AC = window.AudioContext || window.webkitAudioContext;
+                if (AC) audioCtx = new AC();
+            }
+            if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+            return audioCtx;
+        }
+
+        function playSound(type) {
+            if (!audioEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                const now = ctx.currentTime;
+
+                if (type === 'correct') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, now);
+                    osc.frequency.setValueAtTime(659.25, now + 0.1);
+                    osc.frequency.setValueAtTime(783.99, now + 0.2);
+                    osc.frequency.setValueAtTime(1046.50, now + 0.3);
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+                    osc.start(now); osc.stop(now + 0.5);
+                } else if (type === 'wrong') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, now);
+                    osc.frequency.setValueAtTime(164.81, now + 0.15);
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+                    osc.start(now); osc.stop(now + 0.4);
+                } else if (type === 'click') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, now);
+                    osc.frequency.exponentialRampToValueAtTime(200, now + 0.05);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+                    osc.start(now); osc.stop(now + 0.05);
+                } else if (type === 'splash') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(400, now);
+                    osc.frequency.exponentialRampToValueAtTime(800, now + 0.1);
+                    osc.frequency.exponentialRampToValueAtTime(300, now + 0.2);
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+                    osc.start(now); osc.stop(now + 0.25);
+                }
+            } catch (e) { console.warn("Audio error:", e); }
+        }
+
+        let availableBengaliVoice = null;
+        let audioPlayerFallback = null;
+
+        function initBengaliVoices() {
+            if ('speechSynthesis' in window) {
+                const voices = window.speechSynthesis.getVoices();
+                availableBengaliVoice = voices.find(v =>
+                    v.lang.toLowerCase().includes('bn') || v.lang.toLowerCase().includes('bangla') ||
+                    v.lang.toLowerCase().includes('bengali') || v.name.toLowerCase().includes('bengali') ||
+                    v.name.toLowerCase().includes('bangla')
+                ) || null;
+            }
+        }
+
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = initBengaliVoices;
+            initBengaliVoices();
+        }
+
+        function speakText(text, onEndCallback = null) {
+            if (!audioEnabled) { if (onEndCallback) onEndCallback(); return; }
+            getAudioContext();
+            if (audioPlayerFallback) { audioPlayerFallback.pause(); audioPlayerFallback = null; }
+
+            function playOnlineTTS(phrase, cb) {
+                try {
+                    const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(phrase)}&tl=bn&client=tw-ob`;
+                    audioPlayerFallback = new Audio(ttsUrl);
+                    audioPlayerFallback.playbackRate = currentSpeechRate;
+                    audioPlayerFallback.onended = function() { audioPlayerFallback = null; if (cb) cb(); };
+                    audioPlayerFallback.onerror = function() { audioPlayerFallback = null; if (cb) cb(); };
+                    const p = audioPlayerFallback.play();
+                    if (p !== undefined) p.catch(err => { console.warn(err); if (cb) cb(); });
+                } catch (e) { if (cb) cb(); }
+            }
+
+            if ('speechSynthesis' in window) {
+                if (window.speechSynthesis.paused) window.speechSynthesis.resume();
+                window.speechSynthesis.cancel();
+                initBengaliVoices();
+                if (!availableBengaliVoice) { playOnlineTTS(text, onEndCallback); return; }
+                setTimeout(() => {
+                    try {
+                        const u = new SpeechSynthesisUtterance(text);
+                        u.lang = 'bn-BD'; u.rate = currentSpeechRate; u.pitch = 1.0;
+                        if (availableBengaliVoice) u.voice = availableBengaliVoice;
+                        let fired = false;
+                        const safe = () => { if (!fired) { fired = true; if (onEndCallback) onEndCallback(); } };
+                        u.onend = safe;
+                        u.onerror = function(err) { console.warn(err); playOnlineTTS(text, safe); };
+                        currentUtterance = u;
+                        window.speechSynthesis.speak(u);
+                    } catch (e) { playOnlineTTS(text, onEndCallback); }
+                }, 50);
+            } else { playOnlineTTS(text, onEndCallback); }
+        }
+
+        function stopAudio() {
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            if (audioPlayerFallback) { audioPlayerFallback.pause(); audioPlayerFallback = null; }
+            activeReadingIndex = -1;
+            renderPassage();
+            document.getElementById('playBtnText').innerText = 'গল্পটি পুরো শোনো 🔊';
+            document.getElementById('playIcon').className = 'fas fa-volume-up text-lg';
+        }
+
+        function toggleAudio() {
+            audioEnabled = !audioEnabled;
+            const text = document.getElementById('soundText');
+            const icon = document.getElementById('soundIcon');
+            if (audioEnabled) {
+                text.innerText = 'শব্দ চালু';
+                icon.className = 'fas fa-volume-up text-amber-200';
+                playSound('click');
+            } else {
+                text.innerText = 'শব্দ বন্ধ';
+                icon.className = 'fas fa-volume-xmark text-slate-300';
+                stopAudio();
+            }
+        }
+
+        function changeSpeechRate(rate) { currentSpeechRate = parseFloat(rate); playSound('click'); }
+
+        function switchTab(tabName) {
+            playSound('click');
+            stopAudio();
+            document.getElementById('section-reading').classList.add('hidden');
+            document.getElementById('section-exercises').classList.add('hidden');
+            document.getElementById('section-game').classList.add('hidden');
+            document.getElementById('section-guide').classList.add('hidden');
+
+            document.getElementById('tab-reading').className = 'tab-btn px-4 py-2 rounded-2xl text-sm font-bold flex items-center gap-2 bg-sky-100/50 text-white hover:bg-sky-100/80 hover:text-sky-900';
+            document.getElementById('tab-exercises').className = 'tab-btn px-4 py-2 rounded-2xl text-sm font-bold flex items-center gap-2 bg-sky-100/50 text-white hover:bg-sky-100/80 hover:text-sky-900';
+            document.getElementById('tab-game').className = 'tab-btn px-4 py-2 rounded-2xl text-sm font-bold flex items-center gap-2 bg-amber-400 text-sky-950 font-black hover:bg-amber-300 shadow-md opacity-80';
+            document.getElementById('tab-guide').className = 'tab-btn px-4 py-2 rounded-2xl text-sm font-bold flex items-center gap-2 bg-emerald-400 text-emerald-950 font-black hover:bg-emerald-300 shadow-md opacity-80';
+
+            const activeBtn = document.getElementById(`tab-${tabName}`);
+            activeBtn.classList.remove('bg-sky-100/50', 'text-white', 'opacity-80');
+            activeBtn.classList.add('active');
+            document.getElementById(`section-${tabName}`).classList.remove('hidden');
+
+            if (tabName === 'game') setTimeout(initGameCanvas, 100);
+            else stopGameLoop();
+        }
+
+        function renderPassage() {
+            const c = document.getElementById('passageContainer');
+            c.innerHTML = lessonSentences.map((s, i) => {
+                const a = (activeReadingIndex === i);
+                return `
+                    <div onclick="readSingleLine(${i})" class="line-card p-3 rounded-2xl border-2 ${a ? 'active-reading' : 'bg-white border-sky-100 hover:border-sky-300'} cursor-pointer flex items-center justify-between gap-3 shadow-sm transition">
+                        <div class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-full ${a ? 'bg-amber-500 text-white' : 'bg-sky-100 text-sky-800'} text-xs font-black flex items-center justify-center shrink-0">${toBn(i+1)}</span>
+                            <span class="text-gray-800 font-bold">${s}</span>
+                        </div>
+                        <button class="text-sky-600 hover:text-sky-800 text-sm p-1.5 rounded-xl hover:bg-sky-50 shrink-0">
+                            <i class="fas ${a ? 'fa-volume-high text-amber-600 animate-pulse' : 'fa-volume-low'}"></i>
+                        </button>
+                    </div>`;
+            }).join('');
+        }
+
+        function readSingleLine(i) {
+            playSound('click');
+            activeReadingIndex = i;
+            renderPassage();
+            speakText(lessonSentences[i], () => { activeReadingIndex = -1; renderPassage(); });
+        }
+
+        function readEntirePassage() {
+            playSound('click');
+            if (activeReadingIndex !== -1) { stopAudio(); return; }
+            document.getElementById('playBtnText').innerText = 'পড়া শুনছো... 🔊';
+            document.getElementById('playIcon').className = 'fas fa-spinner fa-spin text-lg';
+            let idx = 0;
+            function next() {
+                if (idx >= lessonSentences.length) { stopAudio(); return; }
+                activeReadingIndex = idx;
+                renderPassage();
+                speakText(lessonSentences[idx], () => { idx++; next(); });
+            }
+            next();
+        }
+
+        function renderWordExplorer() {
+            document.getElementById('wordExplorerGrid').innerHTML = vocabularyList.map((item, idx) => `
+                <div onclick="exploreWord(${idx})" class="bg-white rounded-2xl p-3 border-2 border-amber-200 hover:border-amber-400 shadow-sm cursor-pointer transform hover:-translate-y-1 transition text-center space-y-1">
+                    <span class="text-3xl block">${item.emoji}</span>
+                    <h4 class="text-xl font-black text-amber-950">${item.word}</h4>
+                    <p class="text-[11px] font-bold text-slate-500">${item.breakdown}</p>
+                    <span class="text-[10px] bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded-full inline-block mt-1">${item.meaning}</span>
+                </div>
+            `).join('');
+        }
+
+        function exploreWord(i) {
+            playSound('click');
+            const item = vocabularyList[i];
+            const sp = item.spokenSpelling || getKarNameSpoken(item.breakdown);
+            speakText(`${item.word}। বানান: ${sp}। অর্থ: ${item.meaning}`);
+        }
+
+        function renderExercises() {
+            const fb = document.getElementById('fillBlanksContainer');
+            fb.innerHTML = fillBlanksData.map(q => {
+                const ua = fillBlanksAnswers[q.id];
+                let lineText = `___________ ${q.prompt}`;
+                if (ua) lineText = q.template.replace('{SELECTED}', `<u class="text-amber-700 font-black decoration-amber-500">${ua.selected}</u>`);
+                return `<div class="p-3.5 bg-slate-50 rounded-2xl border border-gray-200 space-y-2">
+                    <p class="font-bold text-gray-800 text-sm sm:text-base">${q.prompt}</p>
+                    <div class="flex flex-wrap items-center gap-2">
+                        ${q.options.map(opt => {
+                            let cls = "bg-sky-100 hover:bg-sky-200 text-sky-900 border-sky-300";
+                            if (ua && ua.selected === opt) cls = ua.isCorrect ? "bg-emerald-500 text-white border-emerald-600 animate-praise" : "bg-rose-500 text-white border-rose-600";
+                            return `<button onclick="selectFillBlank(${q.id}, '${opt}')" class="${cls} px-3 py-1.5 rounded-xl border text-sm font-bold transition active:scale-95">${opt}</button>`;
+                        }).join('')}
+                    </div>
+                    <div class="text-sm font-bold text-sky-900 bg-sky-50/80 p-2 rounded-xl border border-sky-100">${lineText}</div>
+                </div>`;
+            }).join('');
+
+            const tf = document.getElementById('trueFalseContainer');
+            tf.innerHTML = trueFalseData.map(item => {
+                const ua = trueFalseAnswers[item.id];
+                return `<div class="p-3.5 bg-slate-50 rounded-2xl border border-gray-200 flex flex-col justify-between space-y-3">
+                    <p class="font-bold text-gray-800 text-sm sm:text-base">"${item.text}"</p>
+                    <div class="flex items-center gap-2">
+                        <button onclick="selectTrueFalse(${item.id}, true)" class="flex-1 py-2 rounded-xl text-xs font-black border transition active:scale-95 ${ua && ua.selected === true ? (ua.isCorrect ? 'bg-emerald-500 text-white border-emerald-600 animate-praise' : 'bg-rose-500 text-white border-rose-600') : 'bg-emerald-100 text-emerald-900 border-emerald-300'}">✓ সত্য</button>
+                        <button onclick="selectTrueFalse(${item.id}, false)" class="flex-1 py-2 rounded-xl text-xs font-black border transition active:scale-95 ${ua && ua.selected === false ? (ua.isCorrect ? 'bg-emerald-500 text-white border-emerald-600 animate-praise' : 'bg-rose-500 text-white border-rose-600') : 'bg-rose-100 text-rose-900 border-rose-300'}">✕ মিথ্যা</button>
+                    </div>
+                </div>`;
+            }).join('');
+
+            const un = document.getElementById('unscrambleContainer');
+            un.innerHTML = unscrambleData.map(item => {
+                if (!unscrambleAnswers[item.id]) unscrambleAnswers[item.id] = { selectedTiles: [], isCorrect: null };
+                const st = unscrambleAnswers[item.id];
+                return `<div class="p-4 bg-indigo-50/60 rounded-3xl border-2 border-indigo-200 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs text-indigo-800 font-bold bg-indigo-200/80 px-3 py-1 rounded-full">💡 ${item.hint}</span>
+                        ${st.isCorrect === true ? '<span class="text-xs font-black text-emerald-600 bg-emerald-100 px-2.5 py-1 rounded-full animate-praise">🎉 বাহবা সুন্দর!</span>' : ''}
+                        ${st.isCorrect === false ? '<span class="text-xs font-black text-rose-600 bg-rose-100 px-2.5 py-1 rounded-full">🔄 আবার চেষ্টা করো!</span>' : ''}
+                    </div>
+                    <div class="min-h-[52px] bg-white rounded-2xl border-2 ${st.isCorrect ? 'border-emerald-400 bg-emerald-50' : 'border-indigo-300'} p-2 flex items-center justify-between gap-2 shadow-inner">
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                            ${st.selectedTiles.length > 0 ? st.selectedTiles.map(c => `<span class="bg-indigo-600 text-white font-black text-lg px-3 py-1 rounded-xl shadow-sm animate-praise">${c}</span>`).join('') : '<span class="text-gray-400 text-xs font-medium px-2">নিচের বর্ণগুলোতে টাচ করে শব্দ বানাও...</span>'}
+                        </div>
+                        ${st.selectedTiles.length > 0 ? `<button onclick="clearLetterTiles(${item.id})" class="text-rose-500 hover:text-rose-700 bg-rose-100 p-1.5 rounded-xl text-xs font-bold transition active:scale-95 shrink-0"><i class="fas fa-trash-can"></i> মুছে ফেলো</button>` : ''}
+                    </div>
+                    <div class="space-y-1.5">
+                        <p class="text-[11px] font-bold text-indigo-900">বর্ণগুলোতে ক্রমান্বয়ে টাচ করো:</p>
+                        <div class="flex flex-wrap items-center gap-2">
+                            ${item.scrambled.map(c => {
+                                const used = st.selectedTiles.includes(c);
+                                return `<button onclick="tapLetterTile(${item.id}, '${c}')" ${used ? 'disabled' : ''} class="${used ? 'bg-gray-200 text-gray-400 border-gray-300 cursor-not-allowed opacity-50' : 'bg-gradient-to-b from-amber-300 to-amber-400 hover:from-amber-200 hover:to-amber-300 text-amber-950 border-amber-500 shadow-md transform hover:-translate-y-0.5 active:translate-y-0'} px-4 py-2 rounded-2xl border-2 text-lg font-black transition">${c}</button>`;
+                            }).join('')}
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+
+            updateTotalScore();
+        }
+
+        function tapLetterTile(itemId, letter) {
+            playSound('click');
+            const item = unscrambleData.find(i => i.id === itemId);
+            const st = unscrambleAnswers[itemId];
+            if (!st.selectedTiles.includes(letter)) st.selectedTiles.push(letter);
+            renderExercises();
+            speakText(getKarNameSpoken(letter) || letter, () => {
+                if (st.selectedTiles.length === item.scrambled.length) {
+                    const built = st.selectedTiles.join('');
+                    if (built === item.correct) {
+                        st.isCorrect = true;
+                        playSound('correct');
+                        speakText(`${getRandomItem(positivePraises)} সঠিক উত্তর দিয়েছ! সঠিক শব্দ হলো ${item.correct}!`);
+                    } else {
+                        st.isCorrect = false;
+                        playSound('wrong');
+                        speakText(getRandomItem(retryEncouragements));
+                    }
+                    renderExercises();
+                }
+            });
+        }
+
+        function clearLetterTiles(id) {
+            playSound('click');
+            unscrambleAnswers[id] = { selectedTiles: [], isCorrect: null };
+            renderExercises();
+        }
+
+        function selectFillBlank(qId, opt) {
+            const q = fillBlanksData.find(i => i.id === qId);
+            const ok = (opt === q.correct);
+            fillBlanksAnswers[qId] = { selected: opt, isCorrect: ok };
+            if (ok) {
+                playSound('correct');
+                speakText(opt, () => speakText(`${getRandomItem(positivePraises)} সঠিক উত্তর দিয়েছ! ${q.template.replace('{SELECTED}', opt)}`));
+            } else {
+                playSound('wrong');
+                speakText(opt, () => speakText(getRandomItem(retryEncouragements)));
+            }
+            renderExercises();
+        }
+
+        function selectTrueFalse(qId, choice) {
+            const item = trueFalseData.find(i => i.id === qId);
+            const ok = (choice === item.isTrue);
+            trueFalseAnswers[qId] = { selected: choice, isCorrect: ok };
+            const sp = choice ? "সত্য" : "মিথ্যা";
+            if (ok) {
+                playSound('correct');
+                speakText(sp, () => speakText(`${getRandomItem(positivePraises)} সঠিক উত্তর দিয়েছ!`));
+            } else {
+                playSound('wrong');
+                speakText(sp, () => speakText(getRandomItem(retryEncouragements)));
+            }
+            renderExercises();
+        }
+
+        function updateTotalScore() {
+            let total = 0;
+            Object.values(fillBlanksAnswers).forEach(a => { if (a.isCorrect) total += 10; });
+            Object.values(trueFalseAnswers).forEach(a => { if (a.isCorrect) total += 10; });
+            Object.values(unscrambleAnswers).forEach(a => { if (a.isCorrect) total += 10; });
+            document.getElementById('exerciseScore').innerText = toBn(total);
+            const sb = document.getElementById('starBadge');
+            if (total >= 90) sb.innerText = '⭐ ⭐ ⭐ ⭐ ⭐';
+            else if (total >= 60) sb.innerText = '⭐ ⭐ ⭐ ⭐';
+            else if (total >= 30) sb.innerText = '⭐ ⭐ ⭐';
+            else sb.innerText = '⭐ ⭐';
+        }
+
+        let canvas, ctx;
+        let animationFrameId = null;
+        let fishes = [];
+        let bubbles = [];
+        let gameScore = 0;
+        let currentGameQuestionIndex = 0;
+        let isProcessingAnswer = false;
+
+        const fishColorPalettes = [
+            { name: "রূপালি ইলিশ", body1: "#ffffff", body2: "#cbd5e1", body3: "#64748b", accent: "#38bdf8" },
+            { name: "সোনালী ইলিশ", body1: "#fef08a", body2: "#f59e0b", body3: "#b45309", accent: "#fde047" },
+            { name: "নীলাভ ইলিশ", body1: "#e0f2fe", body2: "#0284c7", body3: "#0369a1", accent: "#38bdf8" },
+            { name: "গোলাপি ইলিশ", body1: "#fce7f3", body2: "#f43f5e", body3: "#be123c", accent: "#fb7185" },
+            { name: "সবুজাভ ইলিশ", body1: "#d1fae5", body2: "#10b981", body3: "#047857", accent: "#34d399" }
+        ];
+
+        class Fish {
+            constructor(word, isCorrect, cw, ch, ci) {
+                this.word = word;
+                this.isCorrect = isCorrect;
+                this.width = 115; this.height = 58;
+                this.x = Math.random() < 0.5 ? -this.width : cw + this.width;
+                this.y = Math.random() * (ch - 170) + 75;
+                this.speed = (Math.random() * 1.3 + 0.9) * (this.x < 0 ? 1 : -1);
+                this.palette = fishColorPalettes[ci % fishColorPalettes.length];
+                this.finAngle = 0;
+            }
+            update(cw) {
+                this.x += this.speed;
+                this.finAngle += 0.15;
+                if (this.speed > 0 && this.x > cw + this.width) this.x = -this.width;
+                else if (this.speed < 0 && this.x < -this.width) this.x = cw + this.width;
+            }
+            draw(ctx) {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                if (this.speed < 0) ctx.scale(-1, 1);
+                const tw = Math.sin(this.finAngle) * 5;
+                ctx.beginPath();
+                ctx.moveTo(-45, 0); ctx.lineTo(-65 + tw, -18);
+                ctx.lineTo(-56, 0); ctx.lineTo(-65 + tw, 18);
+                ctx.closePath();
+                ctx.fillStyle = this.palette.accent; ctx.fill();
+                ctx.strokeStyle = '#0f172a'; ctx.lineWidth = 1.5; ctx.stroke();
+                ctx.beginPath();
+                ctx.ellipse(0, 0, 46, 23, 0, 0, Math.PI * 2);
+                const g = ctx.createLinearGradient(-46, -23, 46, 23);
+                g.addColorStop(0, this.palette.body1);
+                g.addColorStop(0.4, this.palette.body2);
+                g.addColorStop(1, this.palette.body3);
+                ctx.fillStyle = g; ctx.fill();
+                ctx.strokeStyle = '#0f172a'; ctx.lineWidth = 1.8; ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(5, -23); ctx.quadraticCurveTo(18, -36, 28, -21);
+                ctx.fillStyle = this.palette.accent; ctx.fill(); ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(-10, -3, 8, 0, Math.PI * 0.5);
+                ctx.arc(5, -2, 8, 0, Math.PI * 0.5);
+                ctx.arc(18, -4, 8, 0, Math.PI * 0.5);
+                ctx.strokeStyle = 'rgba(255,255,255,0.6)'; ctx.lineWidth = 2; ctx.stroke();
+                ctx.beginPath(); ctx.arc(28, -6, 5, 0, Math.PI * 2);
+                ctx.fillStyle = '#ffffff'; ctx.fill();
+                ctx.strokeStyle = '#000000'; ctx.lineWidth = 1; ctx.stroke();
+                ctx.beginPath(); ctx.arc(29, -6, 2.5, 0, Math.PI * 2);
+                ctx.fillStyle = '#0f172a'; ctx.fill();
+                ctx.beginPath(); ctx.arc(28, -7.5, 1, 0, Math.PI * 2);
+                ctx.fillStyle = '#ffffff'; ctx.fill();
+                ctx.restore();
+                ctx.save();
+                ctx.font = 'bold 17px "Hind Siliguri", sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                const tW = ctx.measureText(this.word).width + 16;
+                ctx.fillStyle = 'rgba(255,255,255,0.92)';
+                ctx.beginPath();
+                ctx.roundRect(this.x - tW / 2, this.y - 42, tW, 24, 12);
+                ctx.fill();
+                ctx.strokeStyle = this.palette.body3; ctx.lineWidth = 1.5; ctx.stroke();
+                ctx.fillStyle = '#0f172a';
+                ctx.fillText(this.word, this.x, this.y - 29);
+                ctx.restore();
+            }
+            contains(tx, ty) {
+                const dx = tx - this.x, dy = ty - this.y;
+                return (dx * dx) / (50 * 50) + (dy * dy) / (28 * 28) <= 1;
+            }
+        }
+
+        class Bubble {
+            constructor(cw, ch) {
+                this.x = Math.random() * cw;
+                this.y = ch + Math.random() * 50;
+                this.radius = Math.random() * 6 + 3;
+                this.speed = Math.random() * 1.5 + 0.5;
+            }
+            update(ch) { this.y -= this.speed; if (this.y < -10) this.y = ch + 10; }
+            draw(ctx) {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.fill();
+                ctx.strokeStyle = 'rgba(255,255,255,0.7)'; ctx.stroke();
+            }
+        }
+
+        function initGameCanvas() {
+            canvas = document.getElementById('gameCanvas');
+            if (!canvas) return;
+            ctx = canvas.getContext('2d');
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+            canvas.removeEventListener('pointerdown', handleGameClick);
+            canvas.addEventListener('pointerdown', handleGameClick);
+            loadGameQuestion();
+            startGameLoop();
+        }
+
+        function loadGameQuestion() {
+            if (currentGameQuestionIndex >= gameQuestions.length) { showGameEndOverlay(); return; }
+            const q = gameQuestions[currentGameQuestionIndex];
+            document.getElementById('gameTargetPrompt').innerText = q.question;
+            fishes = q.options.map((o, i) => new Fish(o, o === q.answer, canvas.width, canvas.height, i));
+            bubbles = Array.from({ length: 15 }, () => new Bubble(canvas.width, canvas.height));
+            speakText(`প্রশ্ন: ${q.question}`);
+        }
+
+        function startGameLoop() {
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            function loop() {
+                if (!ctx || !canvas) return;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                const bg = ctx.createLinearGradient(0, 0, 0, canvas.height);
+                bg.addColorStop(0, '#38bdf8');
+                bg.addColorStop(0.6, '#0284c7');
+                bg.addColorStop(1, '#075985');
+                ctx.fillStyle = bg;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                bubbles.forEach(b => { b.update(canvas.height); b.draw(ctx); });
+                fishes.forEach(f => { f.update(canvas.width); f.draw(ctx); });
+                animationFrameId = requestAnimationFrame(loop);
+            }
+            loop();
+        }
+
+        function stopGameLoop() {
+            if (animationFrameId) { cancelAnimationFrame(animationFrameId); animationFrameId = null; }
+        }
+
+        function handleGameClick(e) {
+            if (isProcessingAnswer) return;
+            const r = canvas.getBoundingClientRect();
+            const x = e.clientX - r.left, y = e.clientY - r.top;
+            for (let f of fishes) {
+                if (f.contains(x, y)) {
+                    isProcessingAnswer = true;
+                    playSound('splash');
+                    if (f.isCorrect) {
+                        playSound('correct');
+                        gameScore += 25;
+                        document.getElementById('gameScoreText').innerText = toBn(gameScore);
+                        speakText(f.word, () => {
+                            speakText(`${getRandomItem(positivePraises)} সঠিক উত্তর দিয়েছ! সঠিক উত্তর হলো ${f.word}।`, () => {
+                                currentGameQuestionIndex++;
+                                isProcessingAnswer = false;
+                                loadGameQuestion();
+                            });
+                        });
+                    } else {
+                        playSound('wrong');
+                        speakText(f.word, () => speakText(getRandomItem(retryEncouragements), () => { isProcessingAnswer = false; }));
+                    }
+                    break;
+                }
+            }
+        }
+
+        function showGameEndOverlay() {
+            stopGameLoop();
+            const o = document.getElementById('gameOverlay');
+            o.classList.remove('hidden'); o.classList.add('flex');
+            document.getElementById('gameOverlayMsg').innerText = `তুমি মোট ${toBn(gameScore)} পয়েন্ট পেয়েছ এবং পাঠ ৫০ এর সকল প্রশ্নের সঠিক উত্তর দিয়েছ!`;
+            speakText('সাবাস! তুমি সফলভাবে গেমটি শেষ করেছ!');
+        }
+
+        function restartGame() {
+            playSound('click');
+            gameScore = 0; currentGameQuestionIndex = 0; isProcessingAnswer = false;
+            document.getElementById('gameScoreText').innerText = '০';
+            document.getElementById('gameOverlay').classList.add('hidden');
+            document.getElementById('gameOverlay').classList.remove('flex');
+            initGameCanvas();
+        }
+
+        /* PRINT */
+        function openPrintModal() {
+            playSound('click'); stopAudio();
+            const m = document.getElementById('printModal');
+            m.classList.remove('hidden'); m.classList.add('flex');
+        }
+        function closePrintModal() {
+            const m = document.getElementById('printModal');
+            m.classList.add('hidden'); m.classList.remove('flex');
+        }
+        function selectAllPrint(s) {
+            ['pr-story','pr-words','pr-ex1','pr-ex2','pr-ex3','pr-key','pr-guide','pr-eye']
+                .forEach(id => { document.getElementById(id).checked = s; });
+        }
+
+        function buildPrintHTML() {
+            const inc = id => document.getElementById(id).checked;
+            const any = ['pr-story','pr-words','pr-ex1','pr-ex2','pr-ex3','pr-key','pr-guide','pr-eye']
+                .some(id => document.getElementById(id).checked);
+            if (!any) { alert('অনুগ্রহ করে অন্তত একটি অংশ নির্বাচন করুন।'); return null; }
+
+            let h = '';
+            h += `<div class="pr-head">
+                <div class="pr-emoji-row">🐟 🌊 👑 🌊 🐟 🌊 ✨ 🌊 🐟</div>
+                <div class="pr-kicker">🇧🇩 জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড (NCTB) 🇧🇩</div>
+                <div class="pr-kicker">📚 আমার বাংলা বই • প্রথম শ্রেণি 📚</div>
+                <h1>👑 পাঠ ৫০ : মাছের রাজা (ইলিশ) 🐟</h1>
+                <div class="pr-emoji-line">🐟 🌊 ✨ 🐟 👑 🐟 ✨ 🌊 🐟</div>
+                <div class="pr-meta">
+                    <span>🏫 শ্রেণি : .....................</span>
+                    <span>📝 বিষয় : বাংলা</span>
+                    <span>📅 তারিখ : .....................</span>
+                </div>
+                <div class="pr-name">👦 শিক্ষার্থীর নাম : .............................................................................. &nbsp;&nbsp; 🔢 রোল : .................</div>
+            </div>`;
+
+            if (inc('pr-story')) h += `<div class="pr-sec">
+                <h2>📖 ১। পাঠ পড়ো (শব্দ ও বাক্য স্পষ্টভাবে উচ্চারণ করো) 🐟</h2>
+                <ol class="pr-ol">${lessonSentences.map((s, i) => {
+                    const e = ['🐟','✨','🌊','🌊','👑','🍽️','😋','👩','👨','👨‍👩‍👦'];
+                    return `<li>${e[i] || '🐟'} ${s}</li>`;
+                }).join('')}</ol>
+                <div class="pr-emoji-line" style="margin-top:6px;">🐟 🌊 🐟 🌊 🐟 🌊 🐟 🌊 🐟</div>
+            </div>`;
+
+            if (inc('pr-words')) h += `<div class="pr-sec">
+                <h2>🔍 ২। মূল শব্দভাণ্ডার (বর্ণ বিশ্লেষণসহ) ✨</h2>
+                <table class="pr-table">
+                    <thead><tr>
+                        <th style="width:22%">🔤 শব্দ</th>
+                        <th style="width:38%">🔠 বর্ণ বিশ্লেষণ</th>
+                        <th style="width:40%">💡 অর্থ</th>
+                    </tr></thead>
+                    <tbody>${vocabularyList.map(v => `<tr>
+                        <td><strong>${v.emoji} ${v.word}</strong></td>
+                        <td>${v.breakdown}</td>
+                        <td>${v.meaning}</td>
+                    </tr>`).join('')}</tbody>
+                </table>
+            </div>`;
+
+            if (inc('pr-ex1')) {
+                const e = ['🐟','🌊','👑','✨'];
+                h += `<div class="pr-sec">
+                    <h2>✍️ ৩। অনুশীলন ১ : সঠিক শব্দ বেছে শূন্যস্থান পূরণ করো 📝</h2>
+                    ${fillBlanksData.map((q, i) => `<div class="pr-q">
+                        <div class="pr-qt">${e[i] || '🐟'} ${toBn(i+1)}। ${q.prompt}</div>
+                        <div class="pr-sentence"><span class="pr-blank"></span> ${q.template.replace('{SELECTED}', '').trim()}</div>
+                        <div class="pr-opts">🔘 শব্দগুলো : ${q.options.join('  /  ')}</div>
+                    </div>`).join('')}
+                </div>`;
+            }
+
+            if (inc('pr-ex2')) {
+                const e = ['🎨','👑','🌊','😋'];
+                h += `<div class="pr-sec">
+                    <h2>✅ ৪। অনুশীলন ২ : বাক্যটি সত্য নাকি মিথ্যা? (✓ / ✕ চিহ্ন দাও) ❌</h2>
+                    ${trueFalseData.map((t, i) => `<div class="pr-q">
+                        <div class="pr-qt">${e[i] || '🐟'} ${toBn(i+1)}। "${t.text}"</div>
+                        <div class="pr-tf">✔️ সত্য <span class="pr-box"></span> &nbsp;&nbsp;&nbsp; ✖️ মিথ্যা <span class="pr-box"></span></div>
+                    </div>`).join('')}
+                </div>`;
+            }
+
+            if (inc('pr-ex3')) h += `<div class="pr-sec">
+                <h2>🧩 ৫। অনুশীলন ৩ : বর্ণ সাজিয়ে সঠিক শব্দ তৈরি করো 🔤</h2>
+                ${unscrambleData.map((u, i) => `<div class="pr-q">
+                    <div class="pr-qt">🎯 ${toBn(i+1)}। বর্ণগুলো : ${u.scrambled.join('  +  ')}</div>
+                    <div class="pr-sentence">📝 শব্দ : <span class="pr-blank" style="min-width:180px"></span></div>
+                    <div class="pr-opts">💡 ইঙ্গিত : ${u.hint}</div>
+                </div>`).join('')}
+            </div>`;
+
+            if (inc('pr-key')) h += `<div class="pr-sec pr-pagebreak">
+                <h2>🗝️ উত্তরপত্র (শিক্ষক / অভিভাবকের জন্য) 👨‍🏫</h2>
+                <div class="pr-emoji-line">🐟 🌊 👑 🌊 🐟</div>
+                <h3>✍️ অনুশীলন ১ : শূন্যস্থান পূরণ</h3>
+                <p class="pr-ans">${fillBlanksData.map((q, i) => `${toBn(i+1)}. ${q.correct}`).join(' &nbsp;|&nbsp; ')}</p>
+                <h3>✅ অনুশীলন ২ : সত্য / মিথ্যা</h3>
+                <p class="pr-ans">${trueFalseData.map((t, i) => `${toBn(i+1)}. ${t.isTrue ? '✔️ সত্য' : '✖️ মিথ্যা'}`).join(' &nbsp;|&nbsp; ')}</p>
+                <h3>🧩 অনুশীলন ৩ : বর্ণ সাজিয়ে শব্দ</h3>
+                <p class="pr-ans">${unscrambleData.map((u, i) => `${toBn(i+1)}. ${u.correct}`).join(' &nbsp;|&nbsp; ')}</p>
+                <h3>📚 পাঠভিত্তিক সংক্ষিপ্ত তথ্য</h3>
+                <p style="font-weight:600">🐟 ইলিশ আমাদের জাতীয় মাছ। ✨ এর রং রূপালি। 🌊 এটি সাগরে থাকে এবং ডিম দেওয়ার সময় নদীতে আসে। 👑 ইলিশকে "মাছের রাজা" বলা হয়।</p>
+            </div>`;
+
+            if (inc('pr-guide')) h += `<div class="pr-sec${inc('pr-key') ? '' : ' pr-pagebreak'}">
+                <h2>🎓 শ্রেণিকক্ষে পাঠদানের নির্দেশনা (শিক্ষক ও অভিভাবকের জন্য) 📚</h2>
+                <div class="pr-emoji-line">👨‍🏫 🐟 👩‍🏫 🌊 🎓</div>
+                <h3>📖 ১. পাঠ অনুধাবন ও রিডিং অনুশীলন</h3>
+                <ul class="pr-ol" style="margin-left:14px">
+                    <li>🎤 প্রথমে পুরো পাঠ শিক্ষক উচ্চস্বরে পড়ে শোনাবেন, শিশুরা সঙ্গে সঙ্গে অনুসরণ করবে।</li>
+                    <li>🐟 এরপর প্রতিটি বাক্য আলাদাভাবে পড়তে দিয়ে স্পষ্ট উচ্চারণ যাচাই করবেন।</li>
+                    <li>🔤 কঠিন শব্দ (রূপালি, জাতীয়, ডিম) আলাদা করে ভেঙে ভেঙে পড়তে শেখাবেন।</li>
+                </ul>
+                <h3>🔠 ২. বর্ণ ও কার-চিহ্ন পরিচয়</h3>
+                <ul class="pr-ol" style="margin-left:14px">
+                    <li>✏️ ই-কার (ি), ঈ-কার (ী), আ-কার (া) যুক্ত শব্দগুলো বোর্ডে লিখে দেখাবেন।</li>
+                    <li>🧩 শব্দ গঠন দেখাবেন — যেমন : ই + ল + ি + শ = ইলিশ।</li>
+                    <li>🎨 শিশুদের নিজ হাতে কার-চিহ্ন বসিয়ে শব্দ তৈরি করতে দেবেন।</li>
+                </ul>
+                <h3>✍️ ৩. সক্রিয় অনুশীলনী ও মূল্যায়ন</h3>
+                <ul class="pr-ol" style="margin-left:14px">
+                    <li>📝 অনুশীলন ১-৩ আলোচনা করে করাবেন, তারপর নিজে নিজে করতে দেবেন।</li>
+                    <li>💚 ভুল উত্তর দিলে বকা না দিয়ে পুনরায় চেষ্টার সুযোগ দেবেন।</li>
+                    <li>⭐ প্রতিটি সঠিক উত্তরে শিশুকে মুখে "বাহবা" দিয়ে উৎসাহিত করবেন।</li>
+                </ul>
+                <h3>🎮 ৪. আনন্দময় শিখন কার্যক্রম</h3>
+                <ul class="pr-ol" style="margin-left:14px">
+                    <li>🐟 শ্রেণিকক্ষে "মাছের রাজা" গেমটি দলগতভাবে খেলাবেন।</li>
+                    <li>🎨 শিশুদের ইলিশ মাছ আঁকতে ও বানান লিখতে দেবেন।</li>
+                    <li>🏠 বাড়ির কাজ : ইলিশ মাছ সম্পর্কে ৩টি বাক্য লিখে আনবে।</li>
+                </ul>
+                <div class="pr-note" style="margin-top:8px">⏱️ ক্লাস পরিকল্পনা : 📖 পাঠ পরিচিতি ৫ মিনিট → 🎤 মডেল রিডিং ৮ মিনিট → 👥 দলগত অনুশীলন ১০ মিনিট → ✍️ অনুশীলনী ১০ মিনিট → 🎮 গেম / মূল্যায়ন ৭ মিনিট (মোট ৪০ মিনিট)।</div>
+            </div>`;
+
+            if (inc('pr-eye')) h += `<div class="pr-sec">
+                <h2>👀 শিশুর চোখের সুরক্ষা — ২০-২০-২০ নিয়ম 💚</h2>
+                <div class="pr-emoji-line">👁️ 🌟 👀 💚 👁️</div>
+                <ul class="pr-ol" style="margin-left:14px">
+                    <li>⏱️ প্রতি <strong>২০ মিনিট</strong> পরপর স্ক্রিন থেকে চোখ সরিয়ে <strong>২০ ফুট</strong> দূরের বস্তুর দিকে <strong>২০ সেকেন্ড</strong> তাকিয়ে থাকবে।</li>
+                    <li>📏 ডিভাইস চোখ থেকে <strong>১.৫ – ২ ফুট</strong> দূরত্বে রাখবে।</li>
+                    <li>💡 অন্ধকার ঘরে বা শুধু স্ক্রিনের আলোতে পড়া যাবে না — পর্যাপ্ত আলো থাকতে হবে।</li>
+                    <li>✨ মাঝে মাঝে চোখের পলক ফেলবে, যেন চোখ শুষ্ক না হয়।</li>
+                    <li>⏳ একনাগাড়ে ডিজিটাল পড়াশোনা <strong>২০-২৫ মিনিটের বেশি</strong> নয়; দিনে মোট ৪৫-৬০ মিনিট।</li>
+                    <li>☀️ ডিভাইসের উজ্জ্বলতা ঘরের আলোর সাথে মিলিয়ে রাখবে; সন্ধ্যায় Eye Comfort Shield চালু রাখবে।</li>
+                </ul>
+            </div>`;
+
+            h += `<div class="pr-foot">
+                <div class="pr-emoji-line">🐟 🌊 👑 🌊 🐟</div>
+                📚 আমার বাংলা বই • প্রথম শ্রেণি • পাঠ ৫০ : মাছের রাজা (ইলিশ) 🐟 &nbsp;|&nbsp;
+                🎨 পরিকল্পনা ও ডিজাইনে : মো: সাইফুল্লাহ সরোয়ার ⭐ &nbsp;|&nbsp; 📅 ২০২৬
+            </div>`;
+
+            return `<div class="pr-page">${h}</div>`;
+        }
+
+        function generatePrint() {
+            const c = buildPrintHTML();
+            if (!c) return;
+            playSound('click');
+            closePrintModal();
+            stopAudio();
+            document.getElementById('printArea').innerHTML = c;
+            setTimeout(() => { window.print(); }, 350);
+        }
+
+        window.onafterprint = function() {
+            document.getElementById('printArea').innerHTML = '';
+        };
+
+        /* DOWNLOAD HTML */
+        function downloadHTML() {
+            playSound('click'); stopAudio();
+            try {
+                const pa = document.getElementById('printArea');
+                if (pa) pa.innerHTML = '';
+                const pm = document.getElementById('printModal');
+                if (pm) { pm.classList.add('hidden'); pm.classList.remove('flex'); }
+                const im = document.getElementById('installModal');
+                if (im) { im.classList.add('hidden'); im.classList.remove('flex'); }
+                const go = document.getElementById('gameOverlay');
+                if (go) { go.classList.add('hidden'); go.classList.remove('flex'); }
+
+                const fullHTML = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+                const blob = new Blob([fullHTML], { type: 'text/html;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'পাঠ-৫০-মাছের-রাজা-ইলিশ.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                setTimeout(() => URL.revokeObjectURL(url), 500);
+                showToast('✅ ডাউনলোড সম্পন্ন! ফাইলটি কম্পিউটারে সেভ হয়েছে।');
+            } catch (err) {
+                console.error(err);
+                alert('দুঃখিত, ফাইল ডাউনলোড করা যায়নি। আবার চেষ্টা করুন।');
+            }
+        }
+
+        /* TOAST */
+        function showToast(msg) {
+            const t = document.createElement('div');
+            t.style.cssText = `
+                position: fixed; bottom: 24px; left: 50%;
+                transform: translateX(-50%) translateY(80px);
+                background: linear-gradient(135deg, #10b981, #059669);
+                color: #fff; padding: 12px 22px; border-radius: 14px;
+                font-family: 'Hind Siliguri', sans-serif; font-weight: 700;
+                font-size: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+                z-index: 9999; opacity: 0; transition: all 0.35s ease;
+                pointer-events: none; max-width: 90vw; text-align: center;`;
+            t.textContent = msg;
+            document.body.appendChild(t);
+            requestAnimationFrame(() => {
+                t.style.opacity = '1';
+                t.style.transform = 'translateX(-50%) translateY(0)';
+            });
+            setTimeout(() => {
+                t.style.opacity = '0';
+                t.style.transform = 'translateX(-50%) translateY(80px)';
+                setTimeout(() => t.remove(), 400);
+            }, 3200);
+        }
+
+        /* POWERPOINT EXPORT */
+        function downloadPPT() {
+            if (typeof PptxGenJS === 'undefined') {
+                alert('পাওয়ারপয়েন্ট লাইব্রেরি লোড হয়নি। ইন্টারনেট সংযোগ পরীক্ষা করে পেজটি রিফ্রেশ করুন।');
+                return;
+            }
+            const b = document.getElementById('pptBtnText');
+            const old = b.innerText;
+            b.innerText = 'তৈরি হচ্ছে...';
+            playSound('click'); stopAudio();
+            setTimeout(() => {
+                try { buildAndSavePPTX(); }
+                catch (e) { console.error(e); alert('দুঃখিত, পাওয়ারপয়েন্ট তৈরি করা যায়নি।'); }
+                finally { b.innerText = old; }
+            }, 120);
+        }
+
+        function buildAndSavePPTX() {
+            const pptx = new PptxGenJS();
+            pptx.layout = 'LAYOUT_16x9';
+            pptx.title = 'আমার বাংলা বই - ১ম শ্রেণি - পাঠ ৫০ : মাছের রাজা';
+            pptx.subject = 'NCTB প্রথম শ্রেণি বাংলা পাঠ ৫০';
+            pptx.author = 'মো: সাইফুল্লাহ সরোয়ার';
+
+            const FONT = 'Nirmala UI';
+            const SKY = '0284C7', DARK = '075985', AMBER = 'F59E0B', WHITE = 'FFFFFF',
+                  TEXT = '0F172A', GREEN = '047857';
+
+            function addHeader(slide, title) {
+                slide.addShape('rect', { x: 0, y: 0, w: 10, h: 0.85, fill: { color: SKY } });
+                slide.addShape('rect', { x: 0, y: 0.85, w: 10, h: 0.06, fill: { color: AMBER } });
+                slide.addText(title, { x: 0.45, y: 0, w: 9.1, h: 0.85, fontSize: 22, bold: true, color: WHITE, fontFace: FONT, valign: 'middle', align: 'left' });
+            }
+
+            let s = pptx.addSlide();
+            s.background = { color: SKY };
+            s.addShape('rect', { x: 0, y: 0, w: 10, h: 0.28, fill: { color: AMBER } });
+            s.addShape('rect', { x: 0, y: 5.34, w: 10, h: 0.29, fill: { color: AMBER } });
+            s.addText('🐟   🌊   👑   🌊   🐟', { x: 0, y: 0.35, w: 10, h: 0.4, fontSize: 20, align: 'center' });
+            s.addShape('ellipse', { x: 4.1, y: 0.85, w: 1.8, h: 1.8, fill: { color: '0EA5E9' } });
+            s.addText('🐟', { x: 4.1, y: 0.92, w: 1.8, h: 1.7, fontSize: 54, align: 'center', valign: 'middle' });
+            s.addText('👑', { x: 5.55, y: 0.72, w: 0.7, h: 0.7, fontSize: 28, align: 'center' });
+            s.addText('📚 আমার বাংলা বই — প্রথম শ্রেণি 📚', { x: 0, y: 2.72, w: 10, h: 0.45, fontSize: 18, bold: true, color: 'BAE6FD', align: 'center', fontFace: FONT });
+            s.addText('পাঠ ৫০ : মাছের রাজা (ইলিশ) 🐟', { x: 0, y: 3.15, w: 10, h: 0.85, fontSize: 36, bold: true, color: 'FDE68A', align: 'center', fontFace: FONT });
+            s.addText('শ্রেণিকক্ষে পাঠদানের ইন্টারঅ্যাকটিভ উপকরণ', { x: 0, y: 4.0, w: 10, h: 0.45, fontSize: 15, color: WHITE, align: 'center', fontFace: FONT });
+            s.addText('🎨 পরিকল্পনা ও ডিজাইনে : মো: সাইফুল্লাহ সরোয়ার ⭐', { x: 0, y: 4.55, w: 10, h: 0.45, fontSize: 14, bold: true, color: 'FDE68A', align: 'center', fontFace: FONT });
+            s.addText('🐟   🌊   ✨   🐟   👑   🐟   ✨   🌊   🐟', { x: 0, y: 4.98, w: 10, h: 0.35, fontSize: 14, align: 'center' });
+
+            s = pptx.addSlide();
+            s.background = { color: 'F8FAFC' };
+            addHeader(s, '🎯 শিখনফল (Learning Outcomes)');
+            s.addText([
+                { text: 'এই পাঠ শেষে শিক্ষার্থীরা — 🐟', options: { breakLine: true, bold: true, fontSize: 18, color: DARK } },
+                { text: '', options: { breakLine: true, fontSize: 8 } },
+                { text: '📖 ১।  ইলিশ মাছ সম্পর্কে সঠিক তথ্য বলতে পারবে।', options: { breakLine: true } },
+                { text: '🔤 ২।  নতুন শব্দ (ইলিশ, জাতীয়, রূপালি, সাগর, রাজা) স্পষ্টভাবে পড়তে ও লিখতে পারবে।', options: { breakLine: true } },
+                { text: '🧩 ৩।  শব্দের বর্ণ বিশ্লেষণ করতে পারবে (যেমন : ই + ল + ি + শ = ইলিশ)।', options: { breakLine: true } },
+                { text: '✅ ৪।  শূন্যস্থান পূরণ ও সত্য-মিথ্যা নির্ণয় করতে পারবে।', options: { breakLine: true } },
+                { text: '🎮 ৫।  পাঠভিত্তিক প্রশ্নের সঠিক উত্তর নির্বাচন করতে পারবে।', options: { breakLine: true } }
+            ], { x: 0.6, y: 1.15, w: 8.8, h: 4.1, fontSize: 16, fontFace: FONT, color: TEXT, lineSpacing: 30 });
+
+            s = pptx.addSlide();
+            s.background = { color: 'F8FAFC' };
+            addHeader(s, '📖 পাঠ পড়ো — মাছের রাজা (ইলিশ) 🐟');
+            const se = ['🐟','✨','🌊','🌊','👑','🍽️','😋','👩','👨','👨‍👩‍👦'];
+            s.addText(lessonSentences.map((t, i) => ({ text: `${se[i] || '🐟'}  ${toBn(i+1)}।  ${t}`, options: { breakLine: true } })), { x: 0.7, y: 1.15, w: 8.6, h: 4.1, fontSize: 17, fontFace: FONT, color: TEXT, lineSpacing: 28 });
+
+            s = pptx.addSlide();
+            s.background = { color: 'F8FAFC' };
+            addHeader(s, '🔍 মূল শব্দভাণ্ডার (Word Explorer) ✨');
+            const wr = [['🔤 শব্দ', '🔠 বর্ণ বিশ্লেষণ', '💡 অর্থ'].map(t => ({ text: t, options: { bold: true, color: WHITE, fill: { color: SKY }, align: 'center' } }))];
+            vocabularyList.forEach(v => wr.push([
+                { text: `${v.emoji} ${v.word}`, options: { bold: true, color: DARK } },
+                { text: v.breakdown, options: { color: TEXT } },
+                { text: v.meaning, options: { color: TEXT } }
+            ]));
+            s.addTable(wr, { x: 0.6, y: 1.2, w: 8.8, colW: [2.0, 3.3, 3.5], fontFace: FONT, fontSize: 14, border: { pt: 1, color: 'BAE6FD' }, align: 'left', valign: 'middle', rowH: 0.5 });
+
+            s = pptx.addSlide();
+            s.background = { color: 'F8FAFC' };
+            addHeader(s, '✍️ অনুশীলন ১ : শূন্যস্থান পূরণ করো 📝');
+            const e1 = ['🐟','🌊','👑','✨'];
+            s.addText(fillBlanksData.map((q, i) => ({ text: `${e1[i] || '🐟'}  ${toBn(i+1)}।  ${q.prompt}\n     🔘 ______________ ${q.template.replace('{SELECTED}', '').trim()}\n     ( ${q.options.join('  /  ')} )`, options: { breakLine: true } })), { x: 0.7, y: 1.15, w: 8.6, h: 4.1, fontSize: 15, fontFace: FONT, color: TEXT, lineSpacing: 24 });
+
+            s = pptx.addSlide();
+            s.background = { color: 'F8FAFC' };
+            addHeader(s, '✅ অনুশীলন ২ : সত্য নাকি মিথ্যা? ❌');
+            const te = ['🎨','👑','🌊','😋'];
+            s.addText(trueFalseData.map((t, i) => ({ text: `${te[i] || '🐟'}  ${toBn(i+1)}।  "${t.text}"\n     ✔️ সত্য ☐        ✖️ মিথ্যা ☐`, options: { breakLine: true } })), { x: 0.7, y: 1.15, w: 8.6, h: 4.1, fontSize: 16, fontFace: FONT, color: TEXT, lineSpacing: 30 });
+
+            s = pptx.addSlide();
+            s.background = { color: 'F8FAFC' };
+            addHeader(s, '🧩 অনুশীলন ৩ : বর্ণ সাজিয়ে শব্দ তৈরি করো 🔤');
+            s.addText(unscrambleData.map((u, i) => ({ text: `🎯  ${toBn(i+1)}।  ${u.scrambled.join('  +  ')}   →   ____________________\n      💡 ইঙ্গিত : ${u.hint}`, options: { breakLine: true } })), { x: 0.7, y: 1.15, w: 8.6, h: 4.1, fontSize: 16, fontFace: FONT, color: TEXT, lineSpacing: 32 });
+
+            s = pptx.addSlide();
+            s.background = { color: 'F8FAFC' };
+            addHeader(s, '🗝️ উত্তরপত্র (শিক্ষকের জন্য) 👨‍🏫');
+            s.addText([
+                { text: '✍️ অনুশীলন ১ :', options: { bold: true, color: DARK, breakLine: true } },
+                { text: '  ' + fillBlanksData.map((q, i) => `${toBn(i+1)}. ${q.correct}`).join('   |   '), options: { breakLine: true, color: GREEN, bold: true } },
+                { text: '', options: { breakLine: true, fontSize: 8 } },
+                { text: '✅ অনুশীলন ২ :', options: { bold: true, color: DARK, breakLine: true } },
+                { text: '  ' + trueFalseData.map((t, i) => `${toBn(i+1)}. ${t.isTrue ? '✔️ সত্য' : '✖️ মিথ্যা'}`).join('   |   '), options: { breakLine: true, color: GREEN, bold: true } },
+                { text: '', options: { breakLine: true, fontSize: 8 } },
+                { text: '🧩 অনুশীলন ৩ :', options: { bold: true, color: DARK, breakLine: true } },
+                { text: '  ' + unscrambleData.map((u, i) => `${toBn(i+1)}. ${u.correct}`).join('   |   '), options: { breakLine: true, color: GREEN, bold: true } }
+            ], { x: 0.6, y: 1.15, w: 8.8, h: 4.1, fontSize: 15, fontFace: FONT, lineSpacing: 26 });
+
+            s = pptx.addSlide();
+            s.background = { color: 'F8FAFC' };
+            addHeader(s, '🎮 শ্রেণিকক্ষের গেম : সঠিক ইলিশটি ধরো! 🐟');
+            s.addText([
+                { text: '🎯 কীভাবে খেলবে —', options: { bold: true, fontSize: 18, color: DARK, breakLine: true } },
+                { text: '', options: { breakLine: true, fontSize: 8 } },
+                { text: '1️⃣  শিক্ষক প্রশ্ন পড়ে শোনাবেন।', options: { breakLine: true } },
+                { text: '2️⃣  স্ক্রিনে চারটি মাছ সাঁতার কাটবে, প্রতিটির উপরে একটি উত্তর থাকবে।', options: { breakLine: true } },
+                { text: '3️⃣  শিক্ষার্থী সঠিক উত্তরের মাছটিতে টাচ করবে। 🐟', options: { breakLine: true } },
+                { text: '4️⃣  সঠিক হলে 🔊 বাহবা ও ২৫ পয়েন্ট, ভুল হলে আবার চেষ্টার সুযোগ।', options: { breakLine: true } },
+                { text: '5️⃣  মোট ৫টি প্রশ্ন শেষ হলে বিজয়ী দলকে তারকা দেওয়া হবে। ⭐', options: { breakLine: true } }
+            ], { x: 0.65, y: 1.15, w: 8.7, h: 4.1, fontSize: 15, fontFace: FONT, color: TEXT, lineSpacing: 26 });
+
+            s = pptx.addSlide();
+            s.background = { color: 'F8FAFC' };
+            addHeader(s, '👀 শিশুর চোখের সুরক্ষা — ২০-২০-২০ নিয়ম 💚');
+            s.addText([
+                { text: '⏱️ প্রতি ২০ মিনিট পরপর → 📏 ২০ ফুট দূরের বস্তুর দিকে → 👁️ ২০ সেকেন্ড তাকিয়ে থাকা', options: { bold: true, color: GREEN, breakLine: true, fontSize: 17 } },
+                { text: '', options: { breakLine: true, fontSize: 8 } },
+                { text: '📏  ডিভাইস চোখ থেকে ১.৫ – ২ ফুট দূরত্বে রাখা', options: { breakLine: true } },
+                { text: '💡  অন্ধকার ঘরে বা শুধু স্ক্রিনের আলোতে পড়া নিষেধ', options: { breakLine: true } },
+                { text: '✨  মাঝে মাঝে চোখের পলক ফেলা', options: { breakLine: true } },
+                { text: '⏳  একনাগাড়ে ২০-২৫ মিনিটের বেশি ডিজিটাল পড়াশোনা নয়', options: { breakLine: true } },
+                { text: '☀️  ডিভাইসের উজ্জ্বলতা ঘরের আলোর সাথে সামঞ্জস্যপূর্ণ রাখা', options: { breakLine: true } }
+            ], { x: 0.65, y: 1.15, w: 8.7, h: 4.1, fontSize: 15, fontFace: FONT, color: TEXT, lineSpacing: 27 });
+
+            s = pptx.addSlide();
+            s.background = { color: 'F8FAFC' };
+            addHeader(s, '🎓 শ্রেণিকক্ষে পাঠদানের নির্দেশনা 📚');
+            s.addText([
+                { text: '📖 ১। পাঠ অনুধাবন : প্রথমে মডেল রিডিং, পরে শিক্ষার্থীর অনুকরণ ও স্বতন্ত্র পড়া।', options: { breakLine: true } },
+                { text: '🔤 ২। বর্ণ পরিচয় : ই-কার, ঈ-কার, আ-কার যুক্ত শব্দ বোর্ডে লিখে দেখানো।', options: { breakLine: true } },
+                { text: '🧩 ৩। শব্দ গঠন : ই + ল + ি + শ = ইলিশ — হাতে-কলমে সাজিয়ে দেখানো।', options: { breakLine: true } },
+                { text: '✍️ ৪। অনুশীলনী : আলোচনা করে করানো, তারপর স্বতন্ত্রভাবে মূল্যায়ন।', options: { breakLine: true } },
+                { text: '🎨 ৫। সহায়ক কাজ : ইলিশ মাছ আঁকা, বানান লেখা ও ৩টি বাক্য তৈরি।', options: { breakLine: true } },
+                { text: '', options: { breakLine: true, fontSize: 8 } },
+                { text: '⏱️ ৪০ মিনিটের ক্লাস পরিকল্পনা :', options: { bold: true, color: DARK, breakLine: true, fontSize: 16 } },
+                { text: '📖 পাঠ পরিচিতি ৫ মি. → 🎤 মডেল রিডিং ৮ মি. → 👥 দলগত ১০ মি. → ✍️ অনুশীলনী ১০ মি. → 🎮 গেম ৭ মি.', options: { color: 'B45309', bold: true } }
+            ], { x: 0.65, y: 1.15, w: 8.7, h: 4.1, fontSize: 14, fontFace: FONT, color: TEXT, lineSpacing: 25 });
+
+            s = pptx.addSlide();
+            s.background = { color: SKY };
+            s.addShape('rect', { x: 0, y: 0, w: 10, h: 0.28, fill: { color: AMBER } });
+            s.addShape('rect', { x: 0, y: 5.34, w: 10, h: 0.29, fill: { color: AMBER } });
+            s.addText('🐟   🌊   👑   🌊   🐟', { x: 0, y: 0.6, w: 10, h: 0.5, fontSize: 24, align: 'center' });
+            s.addText('ধন্যবাদ 🌊', { x: 0, y: 1.7, w: 10, h: 0.9, fontSize: 40, bold: true, color: 'FDE68A', align: 'center', fontFace: FONT });
+            s.addText('📚 মাছের রাজা (ইলিশ) — পাঠ ৫০ • আমার বাংলা বই • প্রথম শ্রেণি 🐟', { x: 0, y: 2.7, w: 10, h: 0.5, fontSize: 16, color: WHITE, align: 'center', fontFace: FONT });
+            s.addText('🎨 পরিকল্পনা ও ডিজাইনে : মো: সাইফুল্লাহ সরোয়ার ⭐', { x: 0, y: 4.2, w: 10, h: 0.5, fontSize: 15, bold: true, color: 'FDE68A', align: 'center', fontFace: FONT });
+            s.addText('🐟   🌊   ✨   👑   🐟   ✨   🌊   🐟', { x: 0, y: 4.85, w: 10, h: 0.4, fontSize: 16, align: 'center' });
+
+            pptx.writeFile({ fileName: 'পাঠ-৫০-মাছের-রাজা-ইলিশ.pptx' })
+                .then(() => console.log('PPTX created'))
+                .catch(err => { console.error(err); alert('ফাইল সেভ করতে সমস্যা হয়েছে।'); });
+        }
+
+        /* INIT */
+        window.onload = function() {
+            renderPassage();
+            renderWordExplorer();
+            renderExercises();
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.onvoiceschanged = function() { window.speechSynthesis.getVoices(); };
+            }
+        };
+
+        window.onresize = function() {
+            if (canvas) {
+                const r = canvas.getBoundingClientRect();
+                canvas.width = r.width;
+                canvas.height = r.height;
+            }
+        };
+    </script>
+</body>
+</html>
